@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import webpackMerge from 'webpack-merge';
+// import webpackMerge from 'webpack-merge';
 import rainieConfig from '../config/rainie.config';
 
 
@@ -21,12 +21,12 @@ export function getRainieConfig(configPath) {
 /**
  *获取脚手架配置
  */
-export function getScaffoldConfig(group, name, config = {}) {
+// export function getScaffoldConfig(group, name, config = {}) {
 
-  const defaultConfig = require(path.join(__dirname, '../scaffolds', group, name, 'config.js'));
+//   const defaultConfig = require(path.join(__dirname, '../scaffolds', group, name, 'config.js'));
 
-  if (name === 'webpack') {
-    return webpackMerge(defaultConfig, config);
-  }
+//   if (name === 'webpack') {
+//     return webpackMerge(defaultConfig, config);
+//   }
 
-}
+// }

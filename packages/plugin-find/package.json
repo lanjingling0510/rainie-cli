@@ -1,0 +1,20 @@
+{
+  "name": "@rnc/plugin-find",
+  "version": "0.0.0",
+  "description": "🔍 Find files using glob patterns",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "start": "npm run clean && gulp",
+    "build": "npm run clean && babel ./src --out-dir ./lib"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.54",
+    "@rnc/plugin-core": "^0.0.0",
+    "globby": "^8.0.1"
+  }
+}

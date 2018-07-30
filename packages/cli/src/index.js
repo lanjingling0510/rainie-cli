@@ -9,7 +9,7 @@
 
 import program from 'commander';
 import addp from './commands/addp';
-import develop from './commands/develop';
+// import develop from './commands/develop';
 
 
 
@@ -26,11 +26,11 @@ program
     .action(addp);
 
 /* 本地开发 */
-program
-  .command('dev <pagePath>')
-  .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
-  .description('本地开发')
-  .action(develop);
+// program
+//   .command('dev <pagePath>')
+//   .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
+//   .description('本地开发')
+//   .action(develop);
 
 
 /* ci发布 */

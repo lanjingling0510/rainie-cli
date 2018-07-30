@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import FallbackPort from 'fallback-port';
+// import FallbackPort from 'fallback-port';
 import chalk from 'chalk';
 
 export function isNil(value) {
@@ -34,22 +34,22 @@ export async function confirm(message, defaultValue) {
  * @param  {integer} configPort 默认端口号
  * @return {integer} 可用端口号
  */
-function getAvailablePort(configPort) {
-  const fallbackPort = new FallbackPort(configPort);
-  const port = fallbackPort.getPort();
-  if (port !== configPort) {
-    console.log(
-      chalk.yellow(
-        `${configPort} 端口已被占用, 开启另外一个端口: ${port}, 防止冲突!\n\n`
-      )
-    );
-  }
-  return port;
-}
+// function getAvailablePort(configPort) {
+//   const fallbackPort = new FallbackPort(configPort);
+//   const port = fallbackPort.getPort();
+//   if (port !== configPort) {
+//     console.log(
+//       chalk.yellow(
+//         `${configPort} 端口已被占用, 开启另外一个端口: ${port}, 防止冲突!\n\n`
+//       )
+//     );
+//   }
+//   return port;
+// }
 
-export default {
-  isNil,
-  isEmpty,
-  confirm,
-  getAvailablePort
-};
+// export default {
+//   isNil,
+//   isEmpty,
+//   confirm,
+//   getAvailablePort
+// };

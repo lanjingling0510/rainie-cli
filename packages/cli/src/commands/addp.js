@@ -23,6 +23,7 @@ import download from 'download-git-repo';
 import inquirer from 'inquirer';
 import { getRainieConfig } from '../utils/configUtils';
 import utils from '../utils/utils';
+import find from '@rnc/plugin-find';
 
 const error = chalk.red;
 const promptMessage = chalk.blue('>>>') + ': ';
@@ -70,6 +71,9 @@ async function addp(cmd) {
 
     result = await inquirer.prompt(schema);
     const destination = path.resolve(result.message);
+    result = await find('./*')();
+    process.exit(0);
+
 
     // 检查指定目录是否可以覆盖模板
     result = await checkDestPath(destination);
