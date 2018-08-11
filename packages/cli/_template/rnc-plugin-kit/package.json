@@ -1,7 +1,7 @@
 {
   "name": "@rnc/plugin-find",
   "version": "0.0.0",
-  "description": "rnc组件",
+  "description": "rnc组件(内置)",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {

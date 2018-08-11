@@ -1,7 +1,7 @@
 {
   "name": "app_webpack_react_template",
   "version": "1.0.0",
-  "description": "webpack开发的应用",
+  "description": "webpack开发的应用(内置)",
   "main": "",
   "dependencies": {
     "react": "^16.4.1",
