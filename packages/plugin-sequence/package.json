@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-sequence",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "⏩ Run plugins in sequence",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
-    "@rnc/plugin-core": "^0.0.2"
+    "@rnc/plugin-core": "^0.0.4"
   },
   "publishConfig": {
     "access": "public"
