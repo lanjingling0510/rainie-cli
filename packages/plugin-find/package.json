@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-find",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "🔍 Find files using glob patterns",
   "license": "MIT",
   "main": "lib/index.js",
