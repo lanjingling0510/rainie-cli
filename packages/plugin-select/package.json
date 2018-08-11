@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-select",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "🔍 select file or directory",
   "license": "MIT",
   "main": "lib/index.js",
@@ -13,10 +13,10 @@
     "node": ">=6"
   },
   "dependencies": {
-    "fs-extra": "^3.0.1",
     "@babel/runtime": "^7.0.0-beta.56",
-    "@rnc/plugin-core": "^0.0.0",
-    "@rnc/utils": "^0.0.0"
+    "@rnc/plugin-core": "^0.0.1",
+    "@rnc/utils": "^0.0.1",
+    "fs-extra": "^3.0.1"
   },
   "publishConfig": {
     "access": "public"
