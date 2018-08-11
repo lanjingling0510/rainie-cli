@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-env",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "🔍 set process.env",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
-    "@rnc/plugin-core": "^0.0.1"
+    "@rnc/plugin-core": "^0.0.2"
   },
   "publishConfig": {
     "access": "public"
