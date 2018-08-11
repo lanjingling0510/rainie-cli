@@ -5,12 +5,9 @@
     }]
   ],
   "plugins": [
-    "@babel/plugin-syntax-dynamic-import",
     ["@babel/plugin-proposal-object-rest-spread", { "useBuiltIns": true }],
     // 将公共polyfill 抽离出去，减少文件体积
-    ["@babel/plugin-transform-runtime", {
-      "polyfill": false
-    }],
+    "@babel/plugin-transform-runtime",
     "@babel/plugin-proposal-class-properties"
   ]
 }

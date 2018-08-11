@@ -1,0 +1,19 @@
+{
+  "name": "@rnc/plugin-env",
+  "version": "0.0.0",
+  "description": "🔍 set process.env",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "start": "npm run clean && gulp",
+    "build": "npm run clean && babel ./src --out-dir ./lib"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.56",
+    "@rnc/plugin-core": "^0.0.0"
+  }
+}

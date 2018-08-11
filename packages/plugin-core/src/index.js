@@ -10,9 +10,9 @@
 import EventEmitter from 'events';
 
 export const StartFile = {
+  name: '',
   path: '',
   data: null,
-  map: null
 };
 
 export const StartPluginPropsBefore = {

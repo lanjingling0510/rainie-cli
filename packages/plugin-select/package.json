@@ -1,0 +1,21 @@
+{
+  "name": "@rnc/plugin-select",
+  "version": "0.0.0",
+  "description": "🔍 select file or directory",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "start": "npm run clean && gulp",
+    "build": "npm run clean && babel ./src --out-dir ./lib"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "fs-extra": "^3.0.1",
+    "@babel/runtime": "^7.0.0-beta.56",
+    "@rnc/plugin-core": "^0.0.0",
+    "@rnc/utils": "^0.0.0"
+  }
+}

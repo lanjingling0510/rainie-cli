@@ -1,0 +1,15 @@
+{
+  "name": "component_webpack_template",
+  "version": "1.0.0",
+  "description": "webpack开发的组件",
+  "main": "./lib/index.js",
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.0.0-beta.56"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.5",
+    "eslint": "^4.19.1"
+  },
+  "author": "",
+  "license": "ISC"
+}

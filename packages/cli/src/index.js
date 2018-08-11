@@ -7,34 +7,60 @@
  *
  */
 
+import chalk from 'chalk';
 import program from 'commander';
-import addp from './commands/addp';
-// import develop from './commands/develop';
-
-
+import tplAdd from './commands/tpl_add';
+import tplNew from './commands/tpl_new';
+import build from './commands/build';
 
 
 program
     .version(require('../package.json').version, '-v, --version');
 
 
-/* 添加模板 */
+/* 模板 */
 program
-    .command('addp')
+    .command('tpl <action>')
     .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
-    .description('添加模板')
-    .action(addp);
+    .description('模板功能')
+    .action(async (action, cmd) => {
+      switch (action) {
+        case 'add':
+          await tplAdd(cmd);
+          break;
+
+        case 'new':
+          await tplNew(cmd);
+          break;
+
+        default:
+          break;
+      }
+    });
+
 
 /* 本地开发 */
-// program
-//   .command('dev <pagePath>')
-//   .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
-//   .description('本地开发')
-//   .action(develop);
+program
+  .command('dev [pagePath...]')
+  .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
+  .description('本地开发')
+  .action((...args) => {
+    process.env.NODE_ENV = 'development';
+    console.log(`\n${chalk.cyan('###')} 当前正在执行${chalk.red('开发环境')}的构建。\n`);
+    build(...args);
+  });
 
 
-/* ci发布 */
-
+/* 生产环境打包 */
+program
+  .command('build [pagePath...]')
+  .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
+  .description('本地打包')
+  .action((...args) => {
+    process.env.NODE_ENV = 'production';
+    console.log(`\n${chalk.cyan('###')} 当前正在执行${chalk.red('生产环境')}的构建。\n`);
+    build(...args);
+  });
 
 
   program.parse(process.argv);

@@ -13,8 +13,11 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.54",
+    "@babel/runtime": "^7.0.0-beta.56",
     "@rnc/plugin-core": "^0.0.0",
     "globby": "^8.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

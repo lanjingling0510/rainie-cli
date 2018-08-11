@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "rianie custom cli",
   "scripts": {
-    "start": "lerna run --scope $PLUGIN --stream start",
-    "list": "lerna ls",
-    "bootstrap": "lerna bootstrap"
+    "start": "lerna run --parallel --stream start",
+    "build": "lerna run --parallel --stream build",
+    "link": "lerna exec --scope @rnc/cli -- tnpm link",
+    "bootstrap": "lerna bootstrap --hoist"
   },
   "keywords": [
     "analyze",
@@ -17,21 +18,19 @@
   "author": "rainie",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.54",
-    "@babel/core": "^7.0.0-beta.54",
-    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.54",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.54",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.54",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.54",
-    "@babel/preset-env": "^7.0.0-beta.54",
+    "babel-eslint": "^7.2.3",
+    "@babel/cli": "^7.0.0-beta.56",
+    "@babel/core": "^7.0.0-beta.56",
+    "@babel/preset-env": "^7.0.0-beta.56",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.56",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.56",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.56",
     "eslint": "^3.8.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-flowtype": "^2.32.1",
     "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
-    "filesize": "^3.5.9",
-    "fs-extra": "^3.0.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0-beta.2",
     "gulp-chmod": "^2.0.0",
@@ -40,7 +39,6 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
-    "gzip-size": "^3.0.0",
     "lerna": "^2.11.0"
   }
 }

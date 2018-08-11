@@ -1,0 +1,6 @@
+test
+demos
+coverage/
+src
+package-lock.json
+node_modules
