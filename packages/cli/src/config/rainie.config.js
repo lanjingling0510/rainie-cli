@@ -8,7 +8,7 @@ export default {
 
 
     // npm命令
-    npmClient: "tnpm",
+    npmClient: "npm",
 
 
     // 项目类型(app 或 component)

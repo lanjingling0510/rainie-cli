@@ -5,7 +5,7 @@
   "scripts": {
     "start": "lerna run --parallel --stream start",
     "build": "lerna run --parallel --stream build",
-    "link": "lerna exec --scope @rnc/cli -- tnpm link",
+    "link": "lerna exec --scope @rnc/cli -- npm link",
     "bootstrap": "lerna bootstrap --hoist",
     "publish": "lerna publish"
   },
