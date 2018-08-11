@@ -1,5 +1,5 @@
 {
-  "name": "@rnc/plugin-find",
+  "name": "@rnc/plugin-xxxx",
   "version": "0.0.0",
   "description": "rnc组件(内置)",
   "license": "MIT",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
-    "@rnc/plugin-core": "^0.0.0"
+    "@rnc/plugin-core": "^0.0.5"
   },
   "publishConfig": {
     "access": "public"
