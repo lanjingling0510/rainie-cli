@@ -1,6 +1,6 @@
 /*
  * @desc 插件生成器
- * @author: wb-cyt420097 (wb-cyt420097@alibaba-inc.com)
+ * @author: rainie(chenyutian0510@gmail.com)
  * @since: 25/07/2018
  *
  * 提供创造插件的包装方法
