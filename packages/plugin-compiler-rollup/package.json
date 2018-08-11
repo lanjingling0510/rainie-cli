@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-compiler-rollup",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "🔍 webpack compiler",
   "license": "MIT",
   "main": "lib/index.js",

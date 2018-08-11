@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-sequence",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "⏩ Run plugins in sequence",
   "license": "MIT",
   "main": "lib/index.js",

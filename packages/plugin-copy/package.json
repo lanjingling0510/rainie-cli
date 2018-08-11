@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-copy",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "🔍 copy files to destination",
   "license": "MIT",
   "main": "lib/index.js",
