@@ -18,5 +18,8 @@
     "@rnc/shell": "^0.0.0",
     "@rnc/utils": "^0.0.0",
     "fs-extra": "^3.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
