@@ -1,5 +1,4 @@
 import plugin from '@rnc/plugin-core';
-import path from 'path';
 
 
 export default (glob, userOptions = {}) =>
@@ -7,15 +6,22 @@ export default (glob, userOptions = {}) =>
     const globby = require('globby');
     const path = require('path');
     const fs = require('fs');
+    const dirGlob = require('./dir-glob');
 
     const options = {
       ignore: ['node_modules/**'],
-      ...userOptions,
       deep: true,
       onlyFiles: false,
       expandDirectories: false,
-      absolute: true
+      absolute: true,
+      ...userOptions,
     };
+
+    // NOTE: globby expandDirectories depend on dir-glob, but expandDirectories has issue
+    // https://github.com/kevva/dir-glob/issues/7
+    if (options.expandDirectories) {
+      glob = await dirGlob(glob, options);
+    }
 
     const result = await globby(glob, options);
 

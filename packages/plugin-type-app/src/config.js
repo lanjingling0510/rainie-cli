@@ -13,6 +13,7 @@ const cwd = process.cwd();
 const isDev = process.env.NODE_ENV === 'development';
 const pageDir = (process.env.PAGE_DIR || '*').split(',');
 const pageContext = process.env.PAGE_CONTEXT;
+const buildContext = process.env.BUILD_CONTEXT;
 const layoutContext = process.env.LAYOUT_CONTEXT;
 
 /**
@@ -98,7 +99,7 @@ if (Object.keys(pathMapsEntry).length === 0) {
 let config = {
   entry: pathMapsEntry,
   output: {
-    path: path.join(cwd, 'build'),
+    path: buildContext,
     publicPath: '',
     filename: '[name].js',
     chunkFilename: '[chunkhash].js'
@@ -175,7 +176,7 @@ let config = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['build'], {
+    new CleanWebpackPlugin([buildContext], {
       root: cwd,
       verbose: false
     }),

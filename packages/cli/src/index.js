@@ -12,6 +12,7 @@ import program from 'commander';
 import tplAdd from './commands/tpl_add';
 import tplNew from './commands/tpl_new';
 import build from './commands/build';
+import publish from './commands/publish';
 
 
 program
@@ -61,6 +62,13 @@ program
     console.log(`\n${chalk.cyan('###')} 当前正在执行${chalk.red('生产环境')}的构建。\n`);
     build(...args);
   });
+
+  /* 发布 */
+  program
+  .command('publish [pagePath...]')
+  .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
+  .description('发布assets')
+  .action(publish);
 
 
   program.parse(process.argv);

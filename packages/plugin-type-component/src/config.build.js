@@ -1,6 +1,8 @@
 import path from 'path';
 import babel from 'rollup-plugin-babel';
 
+const buildContext = process.env.BUILD_CONTEXT;
+
 const config = {
   input: path.resolve('src', 'index.js'),
 
@@ -39,7 +41,7 @@ const config = {
 
   output: {
     format: 'es',
-    dir: path.resolve(process.cwd(), 'lib')
+    dir: buildContext
   }
 };
 

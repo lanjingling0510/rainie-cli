@@ -15,7 +15,8 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
     "@rnc/plugin-core": "^0.0.4",
-    "globby": "^8.0.1"
+    "globby": "^8.0.1",
+    "path-type": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"

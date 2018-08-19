@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
+    "@rnc/utils": "^0.0.4",
     "ali-oss": "^6.0.1",
     "uuid": "^3.3.2"
   },

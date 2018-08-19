@@ -50,7 +50,8 @@ async function build(pagePath, cmd) {
       env({
         'PAGE_DIR': pagePath[0],
         'PAGE_CONTEXT': config.pageContext,
-        'LAYOUT_CONTEXT': config.layoutContext
+        'BUILD_CONTEXT': config.buildContext,
+        'LAYOUT_CONTEXT': config.layoutContext,
       }),
       type,
       compiler(config.compilerConfig)

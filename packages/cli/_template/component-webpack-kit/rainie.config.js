@@ -10,6 +10,9 @@ module.exports = {
   // html模板上下文
   layoutContext: process.cwd() + '/demos',
 
+  // 打包输出路径
+  buildContext: process.cwd() + '/lib',
+
 
   env: {
     development: {

@@ -1,5 +1,5 @@
 {
-  "name": "@rnc/plugin-oss",
+  "name": "@rnc/plugin-oss-upload",
   "version": "0.0.0",
   "description": "upload assets to oss",
   "license": "MIT",

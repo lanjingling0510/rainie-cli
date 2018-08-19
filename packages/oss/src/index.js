@@ -1,9 +1,11 @@
 import OSS from 'ali-oss';
+import fs from 'fs';
 import uuid from 'uuid';
+import path from 'path';
 import utils from '@rnc/utils';
 
 const defualtOptions = {
-  region: 'oss-cn-beijing.aliyuncs.com',
+  region: 'oss-cn-beijing',
   accessKeyId: 'qaTktU1i8sba2rj3',
   accessKeySecret: 'RcY5oCWqALG8UCeiyt3B7HdanXhRl1',
   bucket: 'cdn-cyt-assets'
@@ -31,25 +33,27 @@ class OssClient {
   async upload(object, srcPath, force = false) {
 
     // 检查指定目录是否可以覆盖文件
-    if (force || !await this.exists(object)) {
-      let res;
-      { res } = await this.oss.delete(object);
+    if (force) {
 
-      if (res.status !== 200) {
+      const del = await this.oss.delete(object);
+
+      if (del.res.status < 200 || del.res.status > 300) {
         throw new Error(
-          `上传oss失败: object = ${object}, status = ${res.status}`
+          `上传oss失败: object = ${object}, status = ${del.res.status}`
         );
       }
 
-      { res } await this.oss.push(object, srcPath);
+      const push = await this.oss.put(object, srcPath);
 
-      if (res.status !== 200) {
+      if (push.res.status !== 200) {
         throw new Error(
-          `上传oss失败: object = ${object}, status = ${res.status}`
+          `上传oss失败: object = ${object}, status = ${push.res.status}`
         );
       }
 
       return path.join(srcPath, object);
+    } else {
+      return false;
     }
   }
 

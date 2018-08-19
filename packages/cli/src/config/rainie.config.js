@@ -26,6 +26,9 @@ export default {
     // html模板上下文
     layoutContext: process.cwd() + '/demos',
 
+    // 输出上下文
+    buildContext: process.cwd() + '/build',
+
     // 本地开发服务配置
     devServer: {
       port: 8000,
