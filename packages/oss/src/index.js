@@ -3,12 +3,13 @@ import fs from 'fs';
 import uuid from 'uuid';
 import path from 'path';
 import utils from '@rnc/utils';
+import config from './config';
 
 const defualtOptions = {
-  region: 'oss-cn-beijing',
-  accessKeyId: 'qaTktU1i8sba2rj3',
-  accessKeySecret: 'RcY5oCWqALG8UCeiyt3B7HdanXhRl1',
-  bucket: 'cdn-cyt-assets'
+  region: config.region,
+  accessKeyId: config.accessKeyId,
+  accessKeySecret: config.accessKeySecret,
+  bucket: config.bucket
 };
 
 class OssClient {
