@@ -1,5 +1,6 @@
 import plugin from '@rnc/plugin-core';
 
+
 export default (npmClient, cmd, options = {}) =>
   plugin('npm', async () => {
     const { default: spinner } = require('@rnc/spinner');
@@ -29,3 +30,14 @@ export default (npmClient, cmd, options = {}) =>
     await shell.exec(command);
     spinner.succeed(`执行命令: ${command} 成功`);
   });
+
+
+  /**
+   * 确保正确的代理
+   * @param {string} url [代理地址]
+   */
+  export const ensureNpmRegistry = (url) =>
+    plugin('ensureNpmRegistry', async () => {
+        const {ensureRegistry} = require('@rnc/npm');
+        await ensureRegistry(url);
+    });

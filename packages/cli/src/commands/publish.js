@@ -6,10 +6,27 @@
  *
  * 发布
  *
- * 1. 读取项目的rainie.config.js
- * 2. 判断项目类型(组件开发/项目开发)
- * 3. 插入指定项目路径
+ *  通用模块发布会有两个阶段:
  *
+ *  检查阶段:
+ *  test: 执行 test 测试用例
+ *  npm: 执行 npm 配置检查
+ *  发布阶段:
+ *  git: 包含升级版本, 生成 changelog, 提交代码, 推送 commits 与 tags
+ *  npm: 包含登录 npm/tnpm, 发布至 npm/tnpm
+ *
+ *  检查阶段:
+ *  test: rnc test
+ *  npm: ensure npm registry
+ *
+ *  发布阶段:
+ *  npm: update version
+ *  git: edit changelog
+ *  git: commit
+ *  git: create release branch,  merge master
+ *  git: add tag
+ *  git: remote push
+ *  npm: publish （prepublishOnly npm run build)
  */
 
 import chalk from 'chalk';
@@ -18,6 +35,9 @@ import { getRainieConfig } from '../utils/index.js';
 import upload from '@rnc/plugin-oss-upload';
 import sequence from '@rnc/plugin-sequence';
 import find from '@rnc/plugin-find';
+import {getNextVersion} from '@rnc/git';
+import npm, {ensureNpmRegistry} from '@rnc/plugin-npm';
+import {gitCommit, gitPush, updatePackageVersion, releaseCurrentBranch} from '@rnc/plugin-git';
 import spinner from '@rnc/spinner';
 import shell from '@rnc/shell';
 import path from 'path';
@@ -45,20 +65,28 @@ async function build(pagePath, cmd) {
           console.log(data.msg);
         }
       }
-    })
+    });
 
+
+    const nextVersion = await getNextVersion();
 
     sequence(
-      find(srcPath, {
-        expandDirectories: true,
-        cwd: path.join(config.buildContext, 'pages')
-      }),
-      upload({
-        cwd: config.buildContext,
-        force: true,
-      })
+      updatePackageVersion(nextVersion),
+      gitCommit(`chore(package.json): update version to ${nextVersion} by rnc`),
+      // gitPush(),
+      releaseCurrentBranch(nextVersion),
+      // npm('run build'),
+      // ensureNpmRegistry(),
+      // npm('run publish'),
+      // find(srcPath, {
+      //   expandDirectories: true,
+      //   cwd: path.join(config.buildContext, 'pages')
+      // }),
+      // upload({
+      //   cwd: config.buildContext,
+      //   force: true,
+      // })
     )({reporter});
-
 
   } catch (err) {
     console.log(error(err));

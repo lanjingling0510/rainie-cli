@@ -6,25 +6,16 @@ import shell from 'shelljs';
  */
 function exec(cmd) {
   // this would be way easier on a shell/bash script :P
-  const child_process = require('child_process');
-
-  const parts = cmd.split(/\s+/g);
-
-  const p = child_process.spawn(parts[0], parts.slice(1), { stdio: 'ignore' });
+  console.log(chalk.cyan('run command: ') + chalk.magenta(cmd));
 
   return new Promise((resolve, reject) => {
-    p.on('exit', function(code) {
-      var err = null;
-      if (code) {
-        err = new Error(
-          'command "' + cmd + '" exited with wrong status code "' + code + '"'
-        );
-        err.code = code;
-        err.cmd = cmd;
-        reject(err);
+    shell.exec(cmd, {silent: true}, function(code, stdout, stderr) {
+      if (stderr) {
+        console.log(`${chalk.red(cmd + '执行失败')}`);
+        reject(stderr);
+      } else {
+        resolve(stdout);
       }
-
-      resolve(code);
     });
   });
 }
@@ -38,14 +29,15 @@ function series(cmds) {
     var execNext = function() {
       let cmd = cmds.shift();
       console.log(chalk.cyan('run command: ') + chalk.magenta(cmd));
-      shell.exec(cmd, function(err) {
-        if (err) {
-          reject(err);
+      shell.exec(cmd, {silent: true}, function(code, stdout, stderr) {
+        if (stderr) {
+          console.log(`${chalk.red(cmd + '执行失败')}`);
+          reject(stderr);
         } else {
           if (cmds.length) {
             execNext();
           } else {
-            resolve(null);
+            resolve(stdout);
           }
         }
       });
