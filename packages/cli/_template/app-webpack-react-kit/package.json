@@ -9,6 +9,7 @@
     "precommit": "lint-staged",
     "dev": "rnc dev home",
     "build": "rnc build",
+    "prepublishOnly": "npm run build",
     "eslint": "eslint 'src/**/*.@(js|jsx)' --fix"
   },
   "dependencies": {
@@ -24,7 +25,8 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.7.0",
     "npm-ensure": "1.x",
-    "lint-staged": "7.x"
+    "lint-staged": "7.x",
+    "husky": "^0.14.3"
   },
   "author": "",
   "license": "ISC",

@@ -73,9 +73,8 @@ async function build(pagePath, cmd) {
     sequence(
       updatePackageVersion(nextVersion),
       gitCommit(`chore(package.json): update version to ${nextVersion} by rnc`),
-      // gitPush(),
+      gitPush(),
       releaseCurrentBranch(nextVersion),
-      // npm('run build'),
       // ensureNpmRegistry(),
       // npm('run publish'),
       // find(srcPath, {

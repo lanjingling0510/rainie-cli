@@ -8,7 +8,7 @@ export const gitCommit = (msg) =>
   });
 
 export const gitPush = () =>
-  plugin('gitCommit', async () => {
+  plugin('gitPush', async () => {
     const {push} = require('@rnc/git');
     await push();
   });
@@ -20,7 +20,7 @@ export const updatePackageVersion = (version) =>
   });
 
 export const releaseCurrentBranch = (version) =>
-  plugin('updatePackageVersion', async () => {
+  plugin('releaseCurrentBranch', async () => {
     const {releaseCurrentBranch} = require('@rnc/git');
     await releaseCurrentBranch(version);
   });

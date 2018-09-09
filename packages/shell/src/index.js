@@ -10,11 +10,11 @@ function exec(cmd) {
 
   return new Promise((resolve, reject) => {
     shell.exec(cmd, {silent: true}, function(code, stdout, stderr) {
-      if (stderr) {
+      if (code) {
         console.log(`${chalk.red(cmd + '执行失败')}`);
-        reject(stderr);
+        reject(stdout || stderr);
       } else {
-        resolve(stdout);
+        resolve(stdout || stderr);
       }
     });
   });
@@ -30,14 +30,14 @@ function series(cmds) {
       let cmd = cmds.shift();
       console.log(chalk.cyan('run command: ') + chalk.magenta(cmd));
       shell.exec(cmd, {silent: true}, function(code, stdout, stderr) {
-        if (stderr) {
+        if (code) {
           console.log(`${chalk.red(cmd + '执行失败')}`);
-          reject(stderr);
+          reject(stdout || stderr);
         } else {
           if (cmds.length) {
             execNext();
           } else {
-            resolve(stdout);
+            resolve(stdout || stderr);
           }
         }
       });
