@@ -4,6 +4,7 @@ import inquirer from 'inquirer';
 import FallbackPort from 'fallback-port';
 import fs from 'fs';
 import chalk from 'chalk';
+export print from './print';
 
 
 export function isNil(value) {
@@ -114,5 +115,6 @@ export default {
   list,
   canCoverDir,
   getAvailablePort,
+  print,
 };
 

@@ -2,6 +2,9 @@ import {getRootPath} from '../utils/index.js';
 
 export default {
 
+    // 配置文件和widget的根目录
+    rncrcPath: '~/.rncrc',
+
 
     // 模板仓库
     templatePath: getRootPath('_template'),
