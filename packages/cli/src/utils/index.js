@@ -45,3 +45,10 @@ export function getRootPath(absolutePath) {
     process.exit(1);
   }
 }
+
+export function getWidgetTemplatePath(config) {
+  const widgetRootPath = path.resolve(config.rncrcPath, 'plugins');
+  const {commandFiles, widget} = config;
+  const widgetDir = path.join(widgetRootPath, widget);
+  return path.join(widgetDir, commandFiles._template);
+}

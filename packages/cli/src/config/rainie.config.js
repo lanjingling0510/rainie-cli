@@ -1,24 +1,29 @@
-import {getRootPath} from '../utils/index.js';
+
+import path from 'path';
+import os from 'os';
 
 export default {
 
     // 配置文件和widget的根目录
-    rncrcPath: '~/.rncrc',
+    rncrcPath: path.join(os.homedir(), '.rncrc'),
 
 
-    // 模板仓库
-    templatePath: getRootPath('_template'),
+
+    // 命令文件映射
+    commandFiles: {
+      dev: 'lib/develop.js',
+      build: 'lib/build.js',
+      publish: 'lib/publish.js',
+      _template: '_template',
+    },
 
 
     // npm命令
     npmClient: "npm",
 
 
-    // 项目类型(app 或 component)
-    type: 'app',
-
-    // 编译工具
-    compiler: 'webpack',
+    // 插件
+    widget: 'univeral-app',
 
     // 编译配置
     compilerConfig: {},

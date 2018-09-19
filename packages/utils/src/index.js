@@ -4,20 +4,21 @@ import inquirer from 'inquirer';
 import FallbackPort from 'fallback-port';
 import fs from 'fs';
 import chalk from 'chalk';
-export print from './print';
+import _print from './print';
 
+
+export const print = _print;
 
 export function isNil(value) {
   return null == value;
 }
 
 export function isEmpty(value) {
-  if (isNil(value)) {
+  if (value === undefined || String(value).trim() === '' || value === null) {
     return true;
   }
 
-  value = String(value).trim();
-  return value === '';
+ return false;
 }
 
 export async function confirm(message, defaultValue) {

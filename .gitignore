@@ -3,3 +3,4 @@ lib
 lerna-debug.log
 package-lock.json
 config.js
+.DS_Store

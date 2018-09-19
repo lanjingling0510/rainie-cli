@@ -15,7 +15,7 @@
 
 import chalk from 'chalk';
 import EventEmitter from 'events';
-import { getRainieConfig } from '../utils/index.js';
+import { getRainieConfig, checkModule, getWidgetTemplatePath } from '../utils/index.js';
 
 import utils from '@rnc/utils';
 import find from '@rnc/plugin-find';
@@ -40,7 +40,10 @@ async function addp(cmd) {
   try {
 
     // 选择生成路径
-    const destination = await utils.input('输入生成路径', '.');
+    const destPath = await utils.input('输入生成路径', '.');
+
+    // 模板路径
+    const templatePath = getWidgetTemplatePath(config);
 
     const reporter = new EventEmitter();
 
@@ -67,9 +70,9 @@ async function addp(cmd) {
 
     // 执行程序
     await sequence(
-      find(config.templatePath + '/*'),
+      find(templatePath + '/*'),
       select('选择模板'),
-      copy(destination),
+      copy(destPath),
       npm(config.npmClient, 'install')
     )({
       reporter: reporter,
