@@ -15,7 +15,8 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
     "chalk": "^1.1.3",
-    "shelljs": "^0.8.2"
+    "shelljs": "^0.8.2",
+    "@rnc/spinner": "^0.0.4"
   },
   "publishConfig": {
     "access": "public"

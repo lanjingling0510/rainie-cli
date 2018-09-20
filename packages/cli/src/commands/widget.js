@@ -20,12 +20,16 @@
  */
 
 import path from 'path';
-import npm from '@rnc/plugin-npm';
-import find from '@rnc/plugin-find';
+import npm from '@rnc/npm';
 import chalk from 'chalk';
 import fs from 'fs-extra';
-import utils, { print } from '@rnc/utils';
+import find from '@rnc/plugin-find';
+import copy from '@rnc/plugin-copy';
+import npmPlugin from '@rnc/plugin-npm';
+import sequence from '@rnc/plugin-sequence';
+import utils, { print, file, net } from '@rnc/utils';
 import { checkModule } from '../utils/index.js';
+
 // import command from '@rnc/widget-univeral-app/lib/publish.js';
 
 class Widget {
@@ -44,10 +48,41 @@ class Widget {
       process.exit(1);
     }
 
-    await npm(
-      this.npmClient,
-      `install --prefix ${this.widgetRootPath}/${name} @rnc/widget-${name}`
-    )();
+    const pkgName = `@rnc/widget-${name}`;
+    const pluginDir = path.join(this.widgetRootPath, name);
+
+    // 确保插件根目录存在
+    await fs.ensureDir(this.widgetRootPath);
+
+    // 获取npm信息
+    let result = await npm.getInfo(pkgName);
+
+    if (!result) {
+      console.log(chalk.red(`未找到插件 ${name} 的 NPM 包信息: ${pkgName}`));
+      process.exit(1);
+    }
+
+    const pkgVersion = result['dist-tags'].latest;
+    const npmInfo = result.versions[pkgVersion];
+    console.log(chalk.yellow(`[i] 获取插件 npm 包: name = ${npmInfo.name}, version = ${npmInfo.version}`));
+
+
+    // 下载插件 zip
+    const tmpDir = file.tmpdir(true);
+    try {
+      console.log(chalk.yellow(`[i] 下载插件 zip 包: tarball = ${npmInfo.dist.tarball}`));
+      await net.download(npmInfo.dist.tarball, tmpDir);
+
+      await sequence(
+        find(path.join(tmpDir, 'package')),
+        copy(pluginDir),
+        npmPlugin(this.config.npmClient, 'install', {cwd: pluginDir})
+      )();
+
+    } finally {
+      await fs.remove(tmpDir);
+    }
+
     console.log(chalk.green(`✔ ${name}安装成功`));
   }
 

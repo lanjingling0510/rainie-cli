@@ -16,8 +16,7 @@
     "@babel/runtime": "^7.0.0-beta.56",
     "@rnc/npm": "^0.0.1",
     "@rnc/plugin-core": "^0.0.4",
-    "@rnc/shell": "^0.0.6",
-    "@rnc/spinner": "^0.0.4"
+    "@rnc/shell": "^0.0.6"
   },
   "publishConfig": {
     "access": "public"

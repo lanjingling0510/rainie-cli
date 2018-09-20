@@ -3,7 +3,6 @@ import plugin from '@rnc/plugin-core';
 
 export default (npmClient, cmd, options = {}) =>
   plugin('npm', async () => {
-    const { default: spinner } = require('@rnc/spinner');
     const {default: shell} = require('@rnc/shell');
 
     if (!shell.which(npmClient)) {
@@ -26,9 +25,7 @@ export default (npmClient, cmd, options = {}) =>
     }, []);
 
     const command = `${npmClient} ${cmd} ${cliArgs.join(' ')}`.trim();
-    spinner.start(`执行命令:${command}`);
-    await shell.exec(command);
-    spinner.succeed(`执行命令: ${command} 成功`);
+    await shell.exec(command, options);
   });
 
 

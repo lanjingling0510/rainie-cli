@@ -1,6 +1,7 @@
 
 import chalk from 'chalk';
 import shell from '@rnc/shell';
+import urllib from 'urllib';
 
 const DEST_REGISTRY = 'https://registry.npmjs.org';
 
@@ -20,9 +21,36 @@ export async function ensureRegistry(url) {
 
 
 
+  /**
+   * 获取 npm 包的信息 (从远程获取)
+   *
+   * @param {String} name
+   * @param {String} depVersion
+   * @return {Promise}
+   */
+export async function getInfo (name, depVersion) {
+  if (!depVersion) {
+    depVersion = 'latest'
+  }
 
+  const url = `${DEST_REGISTRY}/${name}`;
 
+  return urllib.request(url)
+    .then(resp => {
+      let parsed = JSON.parse(resp.data.toString())
 
+      if (!parsed.error) {
+        return parsed
+      }
+
+      return false
+    })
+}
+
+export default {
+  ensureRegistry,
+  getInfo,
+};
 
 
 

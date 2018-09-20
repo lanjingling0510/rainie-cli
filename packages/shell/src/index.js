@@ -1,19 +1,20 @@
 import chalk from 'chalk';
 import shell from 'shelljs';
+import spinner from '@rnc/spinner';
 
 /**
  * execute a single shell command where "cmd" is a string
  */
-function exec(cmd) {
+function exec(cmd, options) {
   // this would be way easier on a shell/bash script :P
-  console.log(chalk.cyan('run command: ') + chalk.magenta(cmd));
-
+  spinner.start(chalk.cyan('run command: ') + chalk.magenta(cmd));
   return new Promise((resolve, reject) => {
-    shell.exec(cmd, {silent: true}, function(code, stdout, stderr) {
+    shell.exec(cmd, {silent: true, ...options}, function(code, stdout, stderr) {
       if (code) {
-        console.log(`${chalk.red(cmd + '执行失败')}`);
+        spinner.fail(`${chalk.red(cmd + '执行失败')}`);
         reject(stdout || stderr);
       } else {
+        spinner.succeed(`执行命令: ${cmd} 成功`);
         resolve(stdout || stderr);
       }
     });

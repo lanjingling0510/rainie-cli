@@ -5,9 +5,13 @@ import FallbackPort from 'fallback-port';
 import fs from 'fs';
 import chalk from 'chalk';
 import _print from './print';
+import _net from './net';
+import _file from './file';
 
 
 export const print = _print;
+export const net = _net;
+export const file = _file;
 
 export function isNil(value) {
   return null == value;
@@ -117,5 +121,7 @@ export default {
   canCoverDir,
   getAvailablePort,
   print,
+  net,
+  file,
 };
 
