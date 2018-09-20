@@ -125,7 +125,8 @@ class Widget {
       process.exit(1);
     }
 
-    return fs.remove(`${this.widgetRootPath}/${name} `);
+    await fs.remove(`${this.widgetRootPath}/${name}`);
+    console.log(chalk.green(`✔ ${name}卸载成功`));
   }
 }
 
