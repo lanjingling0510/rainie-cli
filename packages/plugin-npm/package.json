@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-npm",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "🔍 npm command",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
-    "@rnc/npm": "^0.0.1",
+    "@rnc/npm": "^0.0.2",
     "@rnc/plugin-core": "^0.0.4",
-    "@rnc/shell": "^0.0.6"
+    "@rnc/shell": "^0.0.7"
   },
   "publishConfig": {
     "access": "public"

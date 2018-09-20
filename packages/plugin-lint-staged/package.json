@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-lint-staged",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "🔍 excute lint staged",
   "license": "MIT",
   "main": "lib/index.js",
@@ -15,7 +15,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
     "@rnc/plugin-core": "^0.0.4",
-    "@rnc/shell": "^0.0.6",
+    "@rnc/shell": "^0.0.7",
     "lint-staged": "7.x"
   },
   "publishConfig": {
