@@ -1,8 +1,7 @@
-const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  // 项目类型(app 或 component)
-  type: 'component',
+
+  widget: 'univeral-component',
 
   // 页面应用上下文
   pageContext: process.cwd() + '/demos',
@@ -13,10 +12,8 @@ module.exports = {
   // 打包输出路径
   buildContext: process.cwd() + '/lib',
 
-
   env: {
     development: {
-      compiler: 'webpack',
       compilerConfig: {
         output: {
           filename: 'component.js',
@@ -28,7 +25,6 @@ module.exports = {
     },
 
     production: {
-      compiler: 'rollup',
       compilerConfig: {
         output: {
           name: 'componentjs',

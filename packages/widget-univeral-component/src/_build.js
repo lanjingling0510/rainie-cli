@@ -14,7 +14,6 @@
 
 import chalk from 'chalk';
 import EventEmitter from 'events';
-import { getRainieConfig, checkModule } from '../utils/index.js';
 import sequence from '@rnc/plugin-sequence';
 import env from '@rnc/plugin-env';
 import shell from '@rnc/shell';
@@ -22,20 +21,15 @@ import shell from '@rnc/shell';
 const error = chalk.red;
 const magenta = chalk.dim.magenta;
 
-
-
-async function build(pagePath, cmd) {
-  const config = getRainieConfig(cmd.config);
+async function build(params, cmd, config) {
+  const isDev = process.env.NODE_ENV === 'development';
   const reporter = new EventEmitter();
 
   try {
-
-    // 检测模块是否存在
-    checkModule(`@rnc/plugin-compiler-${config.compiler}`);
-    checkModule(`@rnc/plugin-type-${config.type}`);
-
-    const {default: compiler} = require(`@rnc/plugin-compiler-${config.compiler}`);
-    const {default: type} = require(`@rnc/plugin-type-${config.type}`);
+    const { default: compiler } = isDev
+      ? require('@rnc/plugin-compiler-webpack')
+      : require('@rnc/plugin-compiler-rollup');
+    const { default: type } = require('@rnc/plugin-config-component');
 
     /**
      * 监听消息事件
@@ -44,20 +38,18 @@ async function build(pagePath, cmd) {
       if (name === 'env') {
         console.log(magenta(msg));
       }
-    })
+    });
 
     sequence(
       env({
-        'PAGE_DIR': pagePath[0],
-        'PAGE_CONTEXT': config.pageContext,
-        'BUILD_CONTEXT': config.buildContext,
-        'LAYOUT_CONTEXT': config.layoutContext,
+        PAGE_DIR: params.join(','),
+        PAGE_CONTEXT: config.pageContext,
+        BUILD_CONTEXT: config.buildContext,
+        LAYOUT_CONTEXT: config.layoutContext
       }),
       type,
       compiler(config.compilerConfig)
-    )({reporter});
-
-
+    )({ reporter });
   } catch (err) {
     console.log(error(err));
     shell.exit(1);

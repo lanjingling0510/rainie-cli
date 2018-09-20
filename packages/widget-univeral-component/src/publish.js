@@ -31,7 +31,6 @@
 
 import chalk from 'chalk';
 import EventEmitter from 'events';
-import { getRainieConfig } from '../utils/index.js';
 import upload from '@rnc/plugin-oss-upload';
 import sequence from '@rnc/plugin-sequence';
 import find from '@rnc/plugin-find';
@@ -45,8 +44,7 @@ import path from 'path';
 const error = chalk.red;
 
 
-async function build(pagePath, cmd) {
-  const config = getRainieConfig(cmd.config);
+async function publish(pagePath, cmd, config) {
   const reporter = new EventEmitter();
   const srcPath = pagePath.length > 0 ? pagePath : '*';
 
@@ -93,4 +91,4 @@ async function build(pagePath, cmd) {
   }
 }
 
-export default build;
+export default publish;

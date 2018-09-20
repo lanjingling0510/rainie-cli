@@ -15,7 +15,7 @@
 
 import chalk from 'chalk';
 import EventEmitter from 'events';
-import { getRainieConfig, checkModule, getWidgetTemplatePath } from '../utils/index.js';
+import { getRainieConfig, getWidgetTemplatePath } from '../utils/index.js';
 
 import utils from '@rnc/utils';
 import find from '@rnc/plugin-find';

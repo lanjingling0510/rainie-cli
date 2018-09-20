@@ -1,6 +1,6 @@
 {
-  "name": "@rnc/plugin-type-app",
-  "version": "0.0.6",
+  "name": "@rnc/plugin-config-app",
+  "version": "0.0.0",
   "description": "🔍 app configuration",
   "license": "MIT",
   "main": "lib/index.js",

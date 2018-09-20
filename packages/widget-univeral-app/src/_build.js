@@ -29,7 +29,7 @@ async function build(params, cmd, config) {
   try {
 
     const {default: compiler} = require('@rnc/plugin-compiler-webpack');
-    const {default: type} = require('@rnc/plugin-type-app');
+    const {default: type} = require('@rnc/plugin-config-app');
 
     /**
      * 监听消息事件
