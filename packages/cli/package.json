@@ -1,6 +1,6 @@
 {
   "name": "@rnc/cli",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "⚙️ Plugin creator",
   "main": "lib/index.js",
   "bin": {
@@ -18,14 +18,14 @@
     "@babel/runtime": "^7.0.0-beta.56",
     "@rnc/npm": "^0.0.2",
     "@rnc/plugin-copy": "^0.0.7",
-    "@rnc/plugin-find": "^0.0.6",
+    "@rnc/plugin-find": "^0.0.7",
     "@rnc/plugin-npm": "^0.0.7",
     "@rnc/plugin-select": "^0.0.7",
     "@rnc/plugin-sequence": "^0.0.5",
-    "@rnc/widget-univeral-component": "^0.0.2",
     "@rnc/shell": "^0.0.7",
     "@rnc/spinner": "^0.0.4",
     "@rnc/utils": "^0.0.6",
+    "@rnc/widget-univeral-component": "^0.0.3",
     "chalk": "^1.1.3",
     "commander": "^2.9.0"
   },
