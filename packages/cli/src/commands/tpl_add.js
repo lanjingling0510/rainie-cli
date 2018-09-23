@@ -15,7 +15,7 @@
 
 import chalk from 'chalk';
 import EventEmitter from 'events';
-import { getRainieConfig, getWidgetTemplatePath } from '../utils/index.js';
+import { getRainieConfig } from '../utils/index.js';
 
 import utils from '@rnc/utils';
 import find from '@rnc/plugin-find';
@@ -25,6 +25,7 @@ import copy from '@rnc/plugin-copy';
 import npm from '@rnc/plugin-npm';
 import spinner from '@rnc/spinner';
 import shell from '@rnc/shell';
+import path from 'path';
 
 const error = chalk.red;
 
@@ -42,10 +43,9 @@ async function addp(cmd) {
     // 选择生成路径
     const destPath = await utils.input('输入生成路径', '.');
 
-    // 模板路径
-    const templatePath = getWidgetTemplatePath(config);
-
     const reporter = new EventEmitter();
+
+    const widgetRootPath = path.resolve(config.rncrcPath, 'plugins');
 
 
     /**
@@ -68,9 +68,17 @@ async function addp(cmd) {
       }
     })
 
+
+    const {files} = await sequence(
+      find(widgetRootPath + '/*', {ignore: [path.join(widgetRootPath, '.DS_Store')]}),
+      select('选择插件'),
+    )();
+
+    const templatePath = path.join(files[0].path, '_template');
+
     // 执行程序
     await sequence(
-      find(templatePath + '/*'),
+      find(templatePath + '/*', {ignore: [path.join(templatePath, '.DS_Store')]}),
       select('选择模板'),
       copy(destPath),
       npm(config.npmClient, 'install')

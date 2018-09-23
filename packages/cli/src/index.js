@@ -56,6 +56,7 @@ program
   .description('本地开发')
   .action((params, cmd) => {
     const command = 'dev';
+    process.env.NODE_ENV = 'development';
     const config = getRainieConfig(cmd.config);
     const widgetMananger = new WidgetMananger(config);
     widgetMananger.execute(command, params, cmd, config);
@@ -68,6 +69,7 @@ program
   .option('-c --config [config]', 'rainie cli 配置文件', './rainie.config.js')
   .description('本地打包')
   .action((params, cmd) => {
+    process.env.NODE_ENV = 'production';
     const command = 'build';
     const config = getRainieConfig(cmd.config);
     const widgetMananger = new WidgetMananger(config);

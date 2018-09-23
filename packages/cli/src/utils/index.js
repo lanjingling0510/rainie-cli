@@ -46,7 +46,7 @@ export function getRootPath(absolutePath) {
   }
 }
 
-export function getWidgetTemplatePath(config) {
+export function findWidgetTemplate(config) {
   const widgetRootPath = path.resolve(config.rncrcPath, 'plugins');
   const {commandFiles, widget} = config;
   const widgetDir = path.join(widgetRootPath, widget);

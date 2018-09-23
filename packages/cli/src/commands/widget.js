@@ -30,7 +30,7 @@ import sequence from '@rnc/plugin-sequence';
 import utils, { print, file, net } from '@rnc/utils';
 import { checkModule } from '../utils/index.js';
 
-// import command from '@rnc/widget-univeral-app/lib/publish.js';
+// import command from '@rnc/widget-univeral-component/lib/develop';
 
 class Widget {
   constructor(config) {

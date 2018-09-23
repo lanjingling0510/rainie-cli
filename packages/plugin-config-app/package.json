@@ -13,6 +13,7 @@
     "node": ">=6"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.56",
     "@babel/runtime": "^7.0.0-beta.56",
     "@rnc/plugin-core": "^0.0.4",
     "babel-loader": "8.0.0-beta.4",

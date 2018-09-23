@@ -9,7 +9,7 @@ export default (glob, userOptions = {}) =>
     const dirGlob = require('./dir-glob');
 
     const options = {
-      ignore: ['node_modules/**', '.DS_Store'],
+      ignore: ['node_modules/**'],
       deep: true,
       onlyFiles: false,
       expandDirectories: false,
