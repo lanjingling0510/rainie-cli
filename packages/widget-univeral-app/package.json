@@ -1,6 +1,6 @@
 {
   "name": "@rnc/widget-univeral-app",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "通用应用",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,14 +14,14 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
-    "@rnc/git": "^0.0.2",
+    "@rnc/git": "^0.0.3",
     "@rnc/plugin-compiler-webpack": "^0.0.5",
     "@rnc/plugin-config-app": "^0.0.2",
     "@rnc/plugin-env": "^0.0.5",
     "@rnc/plugin-find": "^0.0.7",
-    "@rnc/plugin-git": "^0.0.2",
+    "@rnc/plugin-git": "^0.0.3",
     "@rnc/plugin-npm": "^0.0.7",
-    "@rnc/plugin-oss-upload": "^0.0.2",
+    "@rnc/plugin-oss-upload": "^0.0.3",
     "@rnc/plugin-sequence": "^0.0.5",
     "@rnc/shell": "^0.0.7",
     "@rnc/spinner": "^0.0.4",
@@ -31,30 +31,35 @@
     "access": "public"
   },
   "rnc": {
-    "commands": [{
-      "name": "dev",
-      "desc": "本地开发",
-      "arguments": "[pagePath...]",
-      "options": [],
-      "action": "./lib/develop.js"
-    }, {
-      "name": "build",
-      "desc": "本地打包",
-      "arguments": "[pagePath...]",
-      "options": [],
-      "action": "./lib/build.js"
-    }, {
-      "name": "publish",
-      "desc": "发布",
-      "arguments": "[pagePath...]",
-      "options": [],
-      "action": "./lib/publish.js"
-    }, {
-      "name": "upload",
-      "desc": "上传",
-      "arguments": "[pagePath...]",
-      "options": [],
-      "action": "./lib/upload.js"
-    }]
+    "commands": [
+      {
+        "name": "dev",
+        "desc": "本地开发",
+        "arguments": "[pagePath...]",
+        "options": [],
+        "action": "./lib/develop.js"
+      },
+      {
+        "name": "build",
+        "desc": "本地打包",
+        "arguments": "[pagePath...]",
+        "options": [],
+        "action": "./lib/build.js"
+      },
+      {
+        "name": "publish",
+        "desc": "发布",
+        "arguments": "[pagePath...]",
+        "options": [],
+        "action": "./lib/publish.js"
+      },
+      {
+        "name": "upload",
+        "desc": "上传",
+        "arguments": "[pagePath...]",
+        "options": [],
+        "action": "./lib/upload.js"
+      }
+    ]
   }
 }
