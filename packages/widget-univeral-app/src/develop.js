@@ -8,10 +8,10 @@ import chalk from 'chalk';
  * @param {Object} cmd 命令对象
  * @param {Object} config 配置文件
  */
-async function develop(params, cmd, config) {
+async function develop(params, cmd) {
   console.log(`\n${chalk.cyan('###')} 当前正在执行${chalk.red('开发环境')}的构建。\n`);
   process.env.NODE_ENV = 'development';
-  return build(params, cmd, config);
+  return build(params, cmd, this.config);
 }
 
 export default develop;

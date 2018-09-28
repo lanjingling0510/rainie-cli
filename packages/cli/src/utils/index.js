@@ -24,8 +24,7 @@ export function getRainieConfig(configPath) {
   // 配置文件如果存在则读取
   if(fs.existsSync(path.resolve(configPath))){
       const config = require(path.resolve(configPath));
-      const env = process.env.NODE_ENV;
-      return Object.assign({}, rainieConfig, config, config.env && config.env[env]);
+      return Object.assign({}, rainieConfig, config);
   }
 
   return rainieConfig;
@@ -44,11 +43,4 @@ export function getRootPath(absolutePath) {
     console.log(chalk.red('找不到相对于ci根目录的文件:' + absolutePath));
     process.exit(1);
   }
-}
-
-export function findWidgetTemplate(config) {
-  const widgetRootPath = path.resolve(config.rncrcPath, 'plugins');
-  const {commandFiles, widget} = config;
-  const widgetDir = path.join(widgetRootPath, widget);
-  return path.join(widgetDir, commandFiles._template);
 }

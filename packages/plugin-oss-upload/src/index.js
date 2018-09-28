@@ -14,18 +14,20 @@ export default (options) =>
 
     const copyPromises = files.map(async file => {
       const object = path.relative(options.cwd, file.path);
-      const result = await oss.upload(object, file.path, options.force);
+      const destPath = path.join(options.baseUrl, object);
+
+      const result = await oss.upload(destPath, file.path, options.force);
       if (result) {
         logMessage({
           type: 'log',
           key: 'succeed',
-          msg: `上传————${object}`
+          msg: `上传————${destPath}`
         });
       } else {
         logMessage({
           type: 'log',
           key: 'fail',
-          msg: `上传————${object}`
+          msg: `上传————${destPath}`
         });
       }
     });

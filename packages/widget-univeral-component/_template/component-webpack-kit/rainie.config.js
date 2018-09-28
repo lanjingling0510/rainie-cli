@@ -12,25 +12,21 @@ module.exports = {
   // 打包输出路径
   buildContext: process.cwd() + '/lib',
 
-  env: {
-    development: {
-      compilerConfig: {
-        output: {
-          filename: 'component.js',
-          library: 'componentjs',
-          libraryExport: 'default',
-          libraryTarget: 'umd',
-        },
-      }
-    },
 
-    production: {
-      compilerConfig: {
-        output: {
-          name: 'componentjs',
-          file: 'component.js'
-        }
-      }
+  dev_compilerConfig: {
+    output: {
+      filename: 'component.js',
+      library: 'componentjs',
+      libraryExport: 'default',
+      libraryTarget: 'umd',
+    },
+  },
+
+
+  build_compilerConfig: {
+    output: {
+      name: 'componentjs',
+      file: 'component.js'
     }
   }
 };

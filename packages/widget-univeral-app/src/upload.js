@@ -34,9 +34,6 @@ import EventEmitter from 'events';
 import upload from '@rnc/plugin-oss-upload';
 import sequence from '@rnc/plugin-sequence';
 import find from '@rnc/plugin-find';
-import {getNextVersion} from '@rnc/git';
-import npm, {ensureNpmRegistry} from '@rnc/plugin-npm';
-import {gitCommit, gitPush, updatePackageVersion, releaseCurrentBranch} from '@rnc/plugin-git';
 import spinner from '@rnc/spinner';
 import shell from '@rnc/shell';
 import path from 'path';
@@ -46,7 +43,7 @@ const error = chalk.red;
 
 async function publish(pagePath, cmd) {
   const reporter = new EventEmitter();
-  const srcPath = pagePath.length > 0 ? pagePath : '*';
+  const srcPath = pagePath.length > 0 ? pagePath : '**';
   const config = this.config;
 
   try {
@@ -66,24 +63,17 @@ async function publish(pagePath, cmd) {
       }
     });
 
-
-    const nextVersion = await getNextVersion();
-
     sequence(
-      updatePackageVersion(nextVersion),
-      gitCommit(`chore(package.json): update version to ${nextVersion} by rnc`),
-      gitPush(),
-      releaseCurrentBranch(nextVersion),
-      // ensureNpmRegistry(),
-      // npm('run publish'),
-      // find(srcPath, {
-      //   expandDirectories: true,
-      //   cwd: path.join(config.buildContext, 'pages')
-      // }),
-      // upload({
-      //   cwd: config.buildContext,
-      //   force: true,
-      // })
+      find(srcPath, {
+        expandDirectories: true,
+        onlyFiles: true,
+        cwd: path.join(config.buildContext, 'pages')
+      }),
+      upload({
+        cwd: config.buildContext,
+        baseUrl: path.join(this.projectConfig.name, this.projectConfig.version),
+        force: true,
+      })
     )({reporter});
 
   } catch (err) {

@@ -12,6 +12,7 @@
  *
  */
 
+import path from 'path';
 import chalk from 'chalk';
 import EventEmitter from 'events';
 import sequence from '@rnc/plugin-sequence';
@@ -21,9 +22,10 @@ import shell from '@rnc/shell';
 const error = chalk.red;
 const magenta = chalk.dim.magenta;
 
-async function build(params, cmd, config) {
+async function build(params, cmd, context) {
   const isDev = process.env.NODE_ENV === 'development';
   const reporter = new EventEmitter();
+  const config = context.config;
 
   try {
     const { default: compiler } = isDev
@@ -48,7 +50,7 @@ async function build(params, cmd, config) {
         LAYOUT_CONTEXT: config.layoutContext
       }),
       type,
-      compiler(config.compilerConfig)
+      compiler(isDev ? config.dev_compilerConfig : config.build_compilerConfig)
     )({ reporter });
   } catch (err) {
     console.log(error(err));

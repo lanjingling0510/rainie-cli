@@ -44,9 +44,10 @@ import path from 'path';
 const error = chalk.red;
 
 
-async function publish(pagePath, cmd, config) {
+async function publish(pagePath, cmd) {
   const reporter = new EventEmitter();
   const srcPath = pagePath.length > 0 ? pagePath : '*';
+  const config = this.config;
 
   try {
 

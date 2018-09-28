@@ -30,12 +30,11 @@ import sequence from '@rnc/plugin-sequence';
 import utils, { print, file, net } from '@rnc/utils';
 import { checkModule } from '../utils/index.js';
 
-// import command from '@rnc/widget-univeral-component/lib/develop';
-
 class Widget {
-  constructor(config) {
-    this.config = config;
-    this.widgetRootPath = path.resolve(this.config.rncrcPath, 'plugins');
+  constructor(context) {
+    this.context = context;
+    this.config = context.config;
+    this.widgetRootPath = this.config.widgetRootPath;
     this.npmClient = this.config.npmClient;
   }
 
@@ -64,21 +63,27 @@ class Widget {
 
     const pkgVersion = result['dist-tags'].latest;
     const npmInfo = result.versions[pkgVersion];
-    console.log(chalk.yellow(`[i] 获取插件 npm 包: name = ${npmInfo.name}, version = ${npmInfo.version}`));
-
+    console.log(
+      chalk.yellow(
+        `[i] 获取插件 npm 包: name = ${npmInfo.name}, version = ${
+          npmInfo.version
+        }`
+      )
+    );
 
     // 下载插件 zip
     const tmpDir = file.tmpdir(true);
     try {
-      console.log(chalk.yellow(`[i] 下载插件 zip 包: tarball = ${npmInfo.dist.tarball}`));
+      console.log(
+        chalk.yellow(`[i] 下载插件 zip 包: tarball = ${npmInfo.dist.tarball}`)
+      );
       await net.download(npmInfo.dist.tarball, tmpDir);
 
       await sequence(
         find(path.join(tmpDir, 'package')),
         copy(pluginDir),
-        npmPlugin(this.config.npmClient, 'install', {cwd: pluginDir})
+        npmPlugin(this.config.npmClient, 'install', { cwd: pluginDir })
       )();
-
     } finally {
       await fs.remove(tmpDir);
     }
@@ -106,14 +111,14 @@ class Widget {
    * 执行插件方法
    */
   async execute(action, ...args) {
-    const {commandFiles, widget} = this.config;
-    const widgetDir = path.join(this.widgetRootPath, widget);
-    const commandPath = path.join(widgetDir, commandFiles[action]);
+    const cmdPath = path.isAbsolute(action)
+      ? action
+      : this.getCurrentWidgetFilePath(action);
 
     // 检测模块是否存在
-    checkModule(commandPath);
-    const {default: command} = require(commandPath);
-    command(...args);
+    checkModule(cmdPath);
+    const { default: command } = require(cmdPath);
+    command.apply(this.context, args);
   }
 
   /**
@@ -127,6 +132,42 @@ class Widget {
 
     await fs.remove(`${this.widgetRootPath}/${name}`);
     console.log(chalk.green(`✔ ${name}卸载成功`));
+  }
+
+  /**
+   * 链接插件
+   */
+  async link(name) {
+    if (utils.isEmpty(name)) {
+      console.log(chalk.red('请输入插件名'));
+      process.exit(1);
+    }
+
+    const srcPath = await utils.input('插件根路径', '.');
+    const abSrcPath = await fs.realpath(srcPath);
+    const destPath = path.join(this.widgetRootPath, name);
+    await fs.remove(destPath);
+    await fs.ensureSymlink(abSrcPath, destPath);
+    console.log(chalk.green(`✔ ${name}链接成功`));
+  }
+
+  /**
+   * 取消链接插件
+   */
+  async unlink(name) {
+    this.uninstall(name);
+  }
+
+  getCurrentWidgetFilePath(file) {
+    const name = this.config.widget;
+    const widgetDir = path.join(this.widgetRootPath, name);
+    return path.join(widgetDir, file);
+  }
+
+  getCurrentWidgetConfig() {
+    const pkgPath = this.getCurrentWidgetFilePath('package.json');
+    checkModule(pkgPath);
+    return require(pkgPath).rnc || {};
   }
 }
 

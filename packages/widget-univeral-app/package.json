@@ -29,5 +29,32 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "rnc": {
+    "commands": [{
+      "name": "dev",
+      "desc": "本地开发",
+      "arguments": "[pagePath...]",
+      "options": [],
+      "action": "./lib/develop.js"
+    }, {
+      "name": "build",
+      "desc": "本地打包",
+      "arguments": "[pagePath...]",
+      "options": [],
+      "action": "./lib/build.js"
+    }, {
+      "name": "publish",
+      "desc": "发布",
+      "arguments": "[pagePath...]",
+      "options": [],
+      "action": "./lib/publish.js"
+    }, {
+      "name": "upload",
+      "desc": "上传",
+      "arguments": "[pagePath...]",
+      "options": [],
+      "action": "./lib/upload.js"
+    }]
   }
 }

@@ -25,6 +25,10 @@ export function isEmpty(value) {
  return false;
 }
 
+export function isNotEmpty(value) {
+  return !isEmpty(value);
+}
+
 export async function confirm(message, defaultValue) {
   const promptMessage = chalk.blue('>>>') + ': ';
   const schema = [
@@ -112,14 +116,31 @@ export function getAvailablePort(configPort) {
   return port;
 }
 
+
+/**
+ * 检测模块是否存在
+ * @param {string} module 模块路径
+ */
+export function checkModule(module) {
+  try {
+    require.resolve(module)
+  } catch (e) {
+    console.error(chalk.red('模块不存在: %s'), module);
+    process.exit(1);
+  }
+}
+
+
 export default {
   isNil,
   isEmpty,
+  isNotEmpty,
   confirm,
   input,
   list,
   canCoverDir,
   getAvailablePort,
+  checkModule,
   print,
   net,
   file,
