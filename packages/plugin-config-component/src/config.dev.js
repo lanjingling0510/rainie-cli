@@ -136,7 +136,8 @@ let config = {
             [require.resolve("@babel/plugin-proposal-class-properties"), { "loose": false }],
             [require.resolve('@babel/plugin-proposal-decorators'), { "legacy": true }],
           ],
-          presets: [[
+          presets: [
+            [
             require.resolve('@babel/preset-env'), {
               "modules": false,
               "loose": true,
@@ -144,7 +145,9 @@ let config = {
                 "browsers": ["last 2 versions", "not ie <= 8"]
               }
             },
-          ]]
+          ],
+          [require.resolve('@babel/preset-react'), {development: true}],
+        ]
         }
       },
       {

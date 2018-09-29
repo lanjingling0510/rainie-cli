@@ -12,7 +12,6 @@
  *
  */
 
-import path from 'path';
 import chalk from 'chalk';
 import EventEmitter from 'events';
 import sequence from '@rnc/plugin-sequence';

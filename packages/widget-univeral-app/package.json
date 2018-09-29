@@ -13,7 +13,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.56",
+    "@babel/runtime": "7.0.0",
     "@rnc/git": "^0.0.3",
     "@rnc/plugin-compiler-webpack": "^0.0.5",
     "@rnc/plugin-config-app": "^0.0.2",
