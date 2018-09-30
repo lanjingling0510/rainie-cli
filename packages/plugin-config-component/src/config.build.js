@@ -6,7 +6,7 @@ const buildContext = process.env.BUILD_CONTEXT;
 const config = {
   input: path.resolve('src', 'index.js'),
 
-  external: id => /@babel\/runtime-corejs2/.test(id),
+  external: id => /@babel\/runtime-corejs2|react/.test(id),
 
   plugins: [
     babel({
@@ -20,7 +20,8 @@ const config = {
               browsers: ['last 2 versions', 'not ie <= 8']
             }
           }
-        ]
+        ],
+        [require.resolve('@babel/preset-react'), {development: false}],
       ],
       exclude: ['node_modules/**'],
       plugins: [
