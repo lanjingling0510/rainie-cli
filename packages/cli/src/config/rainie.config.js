@@ -30,7 +30,7 @@ export default {
   npmClient: 'npm',
 
   // 插件
-  widget: 'univeral-app',
+  widget: '',
 
   // 页面应用上下文
   pageContext: process.cwd() + '/src/pages',

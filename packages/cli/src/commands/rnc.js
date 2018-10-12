@@ -18,7 +18,12 @@ class Rnc {
     /**
      * 项目配置
      */
-    this.projectConfig = require(path.resolve('package.json'));
+
+    try {
+      this.projectConfig = require(path.resolve('package.json'));
+    } catch(e) {
+      this.projectConfig = {};
+    }
 
 
     /**

@@ -1,6 +1,12 @@
 import chalk from 'chalk';
 
-async function pluginCommand(action, ...args) {
+
+/**
+ * 插件命令方法
+ * @param {String} action 插件命令
+ * @param {Array} args 插件命令参数
+ */
+async function pluginCommand(action, args) {
   const context = this;
   switch (action) {
     case 'install':

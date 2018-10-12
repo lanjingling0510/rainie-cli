@@ -160,12 +160,18 @@ class Widget {
 
   getCurrentWidgetFilePath(file) {
     const name = this.config.widget;
-    const widgetDir = path.join(this.widgetRootPath, name);
-    return path.join(widgetDir, file);
+    if (name) {
+      const widgetDir = path.join(this.widgetRootPath, name);
+      return path.join(widgetDir, file);
+    }
   }
 
   getCurrentWidgetConfig() {
     const pkgPath = this.getCurrentWidgetFilePath('package.json');
+    if (!pkgPath) {
+      return {};
+    }
+
     checkModule(pkgPath);
     return require(pkgPath).rnc || {};
   }
