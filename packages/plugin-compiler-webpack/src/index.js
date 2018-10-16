@@ -10,9 +10,9 @@ export default webpackConfig =>
     const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
     const openBrowser = require('react-dev-utils/openBrowser');
     const { default: spinner } = require('@rnc/spinner');
+    const { getAvailablePort } = require('@rnc/utils');
 
-
-    const port = process.env.DEV_PROXY_PORT || 8000;
+    const port = process.env.DEV_PROXY_PORT || getAvailablePort(8000);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const host = process.env.HOST || '0.0.0.0';
     const pageDir = (process.env.PAGE_DIR || '*').split(',');
