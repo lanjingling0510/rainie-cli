@@ -1,6 +1,9 @@
 module.exports = {
-  widget: 'univeral-app',
-  webpackConfig: {
-
-  }
+  widget: 'univeral-rainie-toolbox-app',
+  compilerConfig: {
+    externals: {
+      'systemjs': 'System',
+      '@royjs/core': 'roy',
+    },
+  },
 };
