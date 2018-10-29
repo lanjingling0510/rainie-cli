@@ -1,6 +1,6 @@
 {
   "name": "@rnc/spinner",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "spinner",
   "license": "MIT",
   "main": "lib/index.js",
