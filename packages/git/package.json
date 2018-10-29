@@ -1,6 +1,6 @@
 {
   "name": "@rnc/git",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "git operation",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@rnc/shell": "^0.0.9",
+    "@rnc/shell": "^0.0.10",
     "@rnc/utils": "^0.0.9",
     "chalk": "^2.4.1",
     "fs-extra": "^3.0.1"
