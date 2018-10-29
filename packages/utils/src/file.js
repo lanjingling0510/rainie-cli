@@ -20,7 +20,7 @@ export default {
 
       try {
         if (!this.exists(tmpdir)) {
-          this.mkdirSync(tmpdir);
+          fs.mkdirSync(tmpdir);
         }
       } catch (err) {
         // 如果创建 tmpdir 失败, 就直接用系统的
