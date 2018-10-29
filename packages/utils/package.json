@@ -1,6 +1,6 @@
 {
   "name": "@rnc/utils",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "🔍 common functions",
   "license": "MIT",
   "main": "lib/index.js",
