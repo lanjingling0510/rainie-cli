@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-config-rainie-toolbox-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "🔍 rainie-toolbox app configuration",
   "license": "MIT",
   "main": "lib/index.js",
