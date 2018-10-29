@@ -1,7 +1,7 @@
 
 import chalk from 'chalk';
 import shell from '@rnc/shell';
-import urllib from 'urllib';
+import axios from 'axios';
 
 const DEST_REGISTRY = 'https://registry.npmjs.org';
 
@@ -35,12 +35,11 @@ export async function getInfo (name, depVersion) {
 
   const url = `${DEST_REGISTRY}/${name}`;
 
-  return urllib.request(url)
+  return axios.get(url)
     .then(resp => {
-      let parsed = JSON.parse(resp.data.toString())
-
+      let parsed = resp.data;
       if (!parsed.error) {
-        return parsed
+        return parsed;
       }
 
       return false
