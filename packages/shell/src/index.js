@@ -25,12 +25,12 @@ function exec(cmd, options) {
  * execute multiple commands in series
  * this could be replaced by any flow control lib
  */
-function series(cmds) {
+function series(cmds, options) {
   return new Promise((resolve, reject) => {
     var execNext = function() {
       let cmd = cmds.shift();
       console.log(chalk.cyan('run command: ') + chalk.magenta(cmd));
-      shell.exec(cmd, {silent: true}, function(code, stdout, stderr) {
+      shell.exec(cmd, {silent: true, ...options}, function(code, stdout, stderr) {
         if (code) {
           console.log(`${chalk.red(cmd + '执行失败')}`);
           reject(stdout || stderr);
