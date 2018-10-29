@@ -73,6 +73,7 @@ class Widget {
 
     // 下载插件 zip
     const tmpDir = file.tmpdir(true);
+    console.log(tmpDir)
     try {
       console.log(
         chalk.yellow(`[i] 下载插件 zip 包: tarball = ${npmInfo.dist.tarball}`)

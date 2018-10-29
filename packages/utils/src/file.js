@@ -19,7 +19,7 @@ export default {
       tmpdir = path.join(process.env.HOME || os.homedir(), '.rnc_tmp');
 
       try {
-        if (!this.exists(tmpdir)) {
+        if (!fs.existsSync(tmpdir)) {
           fs.mkdirSync(tmpdir);
         }
       } catch (err) {
