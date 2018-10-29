@@ -1,0 +1,56 @@
+{
+  "name": "koa-server-kit",
+  "version": "1.0.0",
+  "description": "webpack开发的node应用(内置)",
+  "scripts": {
+    "lint": "npm run eslint && npm-ensure -t deps",
+    "test": "rnc test",
+    "precommit": "lint-staged",
+    "dev": "rnc dev",
+    "build": "rnc build",
+    "prepublishOnly": "npm run build",
+    "eslint": "eslint 'src/**/*.@(js|jsx)' --fix"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "rainie",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/runtime": "7.0.0",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.8.1",
+    "eslint-config-cqaso-kit": "0.0.1",
+    "eslint-plugin-flowtype": "^2.32.1",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "npm-ensure": "1.x",
+    "lint-staged": "7.x",
+    "husky": "^0.14.3"
+  },
+  "lint-staged": {
+    "src/**/*.@(js|jsx)": [
+      "eslint --fix",
+      "npm-ensure -t deps",
+      "git add"
+    ]
+  },
+  "ensure": {
+    "deps": {
+      "checkDirs": [
+        "src/**/*"
+      ],
+      "ignores": [
+        "components",
+        "utils",
+        "widget",
+        "styles"
+      ]
+    }
+  },
+  "dependencies": {
+    "koa": "^2.6.1",
+    "koa-router": "^7.4.0"
+  }
+}

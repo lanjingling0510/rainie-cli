@@ -128,9 +128,8 @@ async function newp(context) {
     const tplPath = await utils.input('输入添加的模板路径', '.');
     const realPath = await fs.realpath(tplPath);
     const tplName = path.basename(realPath);
-    const destination = path.join(config.templatePath, tplName);
     const reporter = new EventEmitter();
-
+    const widgetRootPath = path.resolve(context.config.rncrcPath, 'plugins');
 
     /**
      * 监听小溪事件
@@ -151,6 +150,14 @@ async function newp(context) {
         spinner[data.key](message);
       }
     })
+
+    const {files} = await sequence(
+      find(widgetRootPath + '/*', {ignore: [path.join(widgetRootPath, '.DS_Store')]}),
+      select('选择插件'),
+    )();
+
+    const templatePath = path.join(files[0].path, '_template');
+    const destination = path.join(templatePath, tplName);
 
     // 执行程序
     await sequence(
