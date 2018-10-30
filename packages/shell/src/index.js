@@ -17,7 +17,6 @@ function exec(cmd, options) {
 
     child.on('close', (code, stdout, stderr) => {
       if (code) {
-        logger.error(chalk.bold(stdout || stderr));
         reject(stdout || stderr);
       } else {
         logger.success((chalk.bold(chalk.underline(cmd) + ' —— 执行成功')));
@@ -25,10 +24,14 @@ function exec(cmd, options) {
       }
     });
 
+    child.stderr.on('data', (data) => {
+      logger.error(chalk.bold(data + ' —— 执行失败'));
+    });
+
     // 式操作子进程的输出
     child.stdout.on('data', (data) => {
       // 打印，收集数据
-      process.stdout.write('\u001B[90mf' + data.toString('utf8') + '\u001B[22m\u001B[39m');
+      process.stdout.write('\u001B[90m' + data.toString('utf8') + '\u001B[22m\u001B[39m');
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
     });
