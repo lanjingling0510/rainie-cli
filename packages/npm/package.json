@@ -1,6 +1,6 @@
 {
   "name": "@rnc/npm",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "npm operation",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@rnc/shell": "^0.0.14",
+    "@rnc/shell": "^0.0.15",
     "axios": "^0.18.0",
     "chalk": "^2.4.1"
   },
