@@ -4,12 +4,16 @@ import logger from '@rnc/logger';
 import spawn from 'cross-spawn';
 import readline from 'readline';
 
+
 /**
  * 执行命令
  * NOTE: 使用spawn可以通过 stream 的方式操作子进程的输出
+ * @param {string} cmd 命令
+ * @param {object} options 配置
+ * @param {stream} writeStream 写流
+ * @returns
  */
-function exec(cmd, options) {
-
+function exec(cmd, options, writeStream) {
   logger.log(chalk.cyan('run command >>>: ') + chalk.bgBlackBright.bold(cmd));
   return new Promise((resolve, reject) => {
     const bin = cmd.split(/\s+/)[0];
@@ -24,6 +28,11 @@ function exec(cmd, options) {
         resolve(stdout || stderr);
       }
     });
+
+    if (writeStream) {
+      child.stdout.pipe(writeStream);
+      child.stderr.pipe(writeStream);
+    }
 
     child.stderr.on('data', (data) => {
       logger.warning(chalk.bold(data));
@@ -43,9 +52,9 @@ function exec(cmd, options) {
 /**
  * 批量执行命令
  */
-async function series(cmds, options) {
+async function series(cmds, options, writeStream) {
   for (const cmd of cmds) {
-    await exec(cmd, options);
+    await exec(cmd, options, writeStream);
   }
 }
 
