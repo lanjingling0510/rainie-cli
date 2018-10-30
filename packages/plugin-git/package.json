@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-git",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "🔍 git command",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@rnc/git": "^0.0.9",
+    "@rnc/git": "^0.0.10",
     "@rnc/plugin-core": "^0.0.5"
   },
   "publishConfig": {
