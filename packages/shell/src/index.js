@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import shell from 'shelljs';
 import logger from '@rnc/logger';
 import spawn from 'cross-spawn';
+import readline from 'readline';
 
 /**
  * 执行命令
@@ -25,15 +26,16 @@ function exec(cmd, options) {
     });
 
     child.stderr.on('data', (data) => {
-      logger.error(chalk.bold(data + ' —— 执行失败'));
+      logger.warning(chalk.bold(data));
     });
 
-    // 式操作子进程的输出
+    // 式操作子进程的输出, 打印，收集数据
     child.stdout.on('data', (data) => {
-      // 打印，收集数据
+      // 使用readline模块，解决不是tty情况下process.stdout.cursorTo不存在
+      readline.cursorTo(process.stdout, 0);
       process.stdout.write('\u001B[90m' + data.toString('utf8') + '\u001B[22m\u001B[39m');
-      process.stdout.clearLine();
-      process.stdout.cursorTo(0);
+      // process.stdout.clearLine();
+      // process.stdout.cursorTo(0);
     });
   });
 }
