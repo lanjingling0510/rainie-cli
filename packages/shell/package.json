@@ -1,6 +1,6 @@
 {
   "name": "@rnc/shell",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "execute the bash command",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@rnc/spinner": "^0.0.5",
+    "@rnc/logger": "^0.0.0",
     "chalk": "^2.4.1",
+    "cross-spawn": "^6.0.5",
     "shelljs": "^0.8.2"
   },
   "publishConfig": {
