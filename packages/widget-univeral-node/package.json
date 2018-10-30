@@ -1,6 +1,6 @@
 {
   "name": "@rnc/widget-univeral-node",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "通用node服务器",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@rnc/git": "^0.0.11",
+    "@rnc/git": "^0.0.12",
     "@rnc/plugin-compiler-webpack-server": "^0.0.1",
     "@rnc/plugin-config-node-server": "^0.0.1",
     "@rnc/plugin-env": "^0.0.6",
     "@rnc/plugin-find": "^0.0.8",
     "@rnc/plugin-sequence": "^0.0.6",
-    "@rnc/shell": "^0.0.13",
+    "@rnc/shell": "^0.0.14",
     "@rnc/spinner": "^0.0.5",
     "chalk": "^2.4.1"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@rnc/widget-univeral-app",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "通用应用",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,16 +14,16 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@rnc/git": "^0.0.11",
+    "@rnc/git": "^0.0.12",
     "@rnc/plugin-compiler-webpack": "^0.0.10",
     "@rnc/plugin-config-app": "^0.0.4",
     "@rnc/plugin-env": "^0.0.6",
     "@rnc/plugin-find": "^0.0.8",
-    "@rnc/plugin-git": "^0.0.11",
-    "@rnc/plugin-npm": "^0.0.13",
+    "@rnc/plugin-git": "^0.0.12",
+    "@rnc/plugin-npm": "^0.0.14",
     "@rnc/plugin-oss-upload": "^0.0.8",
     "@rnc/plugin-sequence": "^0.0.6",
-    "@rnc/shell": "^0.0.13",
+    "@rnc/shell": "^0.0.14",
     "@rnc/spinner": "^0.0.5",
     "chalk": "^2.4.1"
   },

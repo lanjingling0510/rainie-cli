@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-copy",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "🔍 copy files to destination",
   "license": "MIT",
   "main": "lib/index.js",
@@ -15,7 +15,7 @@
   "dependencies": {
     "@babel/runtime": "7.0.0",
     "@rnc/plugin-core": "^0.0.5",
-    "@rnc/shell": "^0.0.13",
+    "@rnc/shell": "^0.0.14",
     "@rnc/utils": "^0.0.12",
     "fs-extra": "^3.0.1"
   },
