@@ -23,6 +23,9 @@ class Commander {
       cmd = cmd.option(option.flags, option.desc, option.default);
     }
 
+    // NOTE: 在子spawn线程中执行rnc显示颜色
+    cmd = cmd.option('--color', '显示终端颜色');
+
     cmd = cmd.description(config.desc);
 
     // 执行命令回调

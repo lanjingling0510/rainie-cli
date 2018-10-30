@@ -1,50 +1,47 @@
 import chalk from 'chalk';
 import shell from 'shelljs';
-import spinner from '@rnc/spinner';
+import logger from '@rnc/logger';
+import spawn from 'cross-spawn';
 
 /**
- * execute a single shell command where "cmd" is a string
+ * 执行命令
+ * NOTE: 使用spawn可以通过 stream 的方式操作子进程的输出
  */
 function exec(cmd, options) {
-  // this would be way easier on a shell/bash script :P
-  spinner.start(chalk.cyan('run command: ') + chalk.magenta(cmd));
+
+  logger.log(chalk.cyan('run command >>>: ') + chalk.bgBlackBright.bold(cmd));
   return new Promise((resolve, reject) => {
-    shell.exec(cmd, {silent: true, ...options}, function(code, stdout, stderr) {
+    const bin = cmd.split(/\s+/)[0];
+    const args = cmd.split(/\s+/).slice(1);
+    const child = spawn(bin, args, { stdio: 'pipe', ...options });
+
+    child.on('close', (code, stdout, stderr) => {
       if (code) {
-        spinner.fail(`${chalk.red(cmd + '执行失败')}`);
+        logger.error(chalk.bold(stdout || stderr));
         reject(stdout || stderr);
       } else {
-        spinner.succeed(`执行命令: ${cmd} 成功`);
+        logger.success((chalk.bold(chalk.underline(cmd) + ' —— 执行成功')));
         resolve(stdout || stderr);
       }
+    });
+
+    // 式操作子进程的输出
+    child.stdout.on('data', (data) => {
+      // 打印，收集数据
+      process.stdout.write('\u001B[90mf' + data.toString('utf8') + '\u001B[22m\u001B[39m');
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
     });
   });
 }
 
 /**
- * execute multiple commands in series
- * this could be replaced by any flow control lib
+ * 批量执行命令
  */
-function series(cmds, options) {
-  return new Promise((resolve, reject) => {
-    var execNext = function() {
-      let cmd = cmds.shift();
-      console.log(chalk.cyan('run command: ') + chalk.magenta(cmd));
-      shell.exec(cmd, {silent: true, ...options}, function(code, stdout, stderr) {
-        if (code) {
-          console.log(`${chalk.red(cmd + '执行失败')}`);
-          reject(stdout || stderr);
-        } else {
-          if (cmds.length) {
-            execNext();
-          } else {
-            resolve(stdout || stderr);
-          }
-        }
-      });
-    };
-    execNext();
-  });
+async function series(cmds, options) {
+  for (const cmd of cmds) {
+    await exec(cmd, options);
+  }
 }
 
 export default {

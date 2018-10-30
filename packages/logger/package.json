@@ -1,0 +1,23 @@
+{
+  "name": "@rnc/logger",
+  "version": "0.0.0",
+  "description": "logger",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "start": "npm run clean && gulp",
+    "build": "npm run clean && babel ./src --out-dir ./lib"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.0.0",
+    "log-symbols": "^2.2.0",
+    "chalk": "^2.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
