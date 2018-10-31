@@ -2,8 +2,16 @@ import chalk from 'chalk';
 import shell from 'shelljs';
 import logger from '@rnc/logger';
 import spawn from 'cross-spawn';
-import readline from 'readline';
 
+
+
+const normalizewriteStream = (stream) => {
+  if (!stream) {
+    stream = {write: () => {}};
+  }
+
+  return stream;
+}
 
 /**
  * 执行命令
@@ -14,7 +22,13 @@ import readline from 'readline';
  * @returns
  */
 function exec(cmd, options, writeStream) {
-  logger.log(chalk.cyan('run command >>>: ') + chalk.bgBlackBright.bold(cmd));
+  writeStream = normalizewriteStream(writeStream);
+
+  const startMsg = chalk.cyan('run command >>>: ') + chalk.bgBlackBright.bold(cmd);
+  logger.log(startMsg);
+  writeStream.write(startMsg);
+
+
   return new Promise((resolve, reject) => {
     const bin = cmd.split(/\s+/)[0];
     const args = cmd.split(/\s+/).slice(1);
@@ -24,27 +38,26 @@ function exec(cmd, options, writeStream) {
       if (code) {
         reject(stdout || stderr);
       } else {
-        logger.success((chalk.bold(chalk.underline(cmd) + ' —— 执行成功')));
+        const successMsg = logger.success(chalk.underline(cmd) + ' —— 执行成功');
+        writeStream.write(successMsg);
         resolve(stdout || stderr);
       }
     });
 
-    if (writeStream) {
-      child.stdout.pipe(writeStream);
-      child.stderr.pipe(writeStream);
-    }
-
     child.stderr.on('data', (data) => {
-      logger.warning(chalk.bold(data));
+      logger.once('message:warning', msg => {
+        writeStream.write(msg);
+      });
+      logger.warning(data.toString('utf8'));
     });
 
     // 式操作子进程的输出, 打印，收集数据
     child.stdout.on('data', (data) => {
-      // 使用readline模块，解决不是tty情况下process.stdout.cursorTo不存在
-      readline.cursorTo(process.stdout, 0);
-      process.stdout.write('\u001B[90m' + data.toString('utf8') + '\u001B[22m\u001B[39m');
-      // process.stdout.clearLine();
-      // process.stdout.cursorTo(0);
+      logger.once('message:content', msg => {
+        writeStream.write(msg);
+      });
+      logger.content(data.toString('utf8'));
+
     });
   });
 }

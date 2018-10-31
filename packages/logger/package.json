@@ -15,7 +15,8 @@
   "dependencies": {
     "@babel/runtime": "7.0.0",
     "chalk": "^2.4.1",
-    "log-symbols": "^2.2.0"
+    "log-symbols": "^2.2.0",
+    "@rnc/utils": "^0.0.12"
   },
   "publishConfig": {
     "access": "public"

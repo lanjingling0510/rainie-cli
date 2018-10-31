@@ -1,32 +1,43 @@
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
+import {event} from '@rnc/utils';
 
 const logTypeConfig = {
   error: {
-    color: 'red',
+    color: ['red', 'bold'],
     header: `${logSymbols.error} - `
   },
   success: {
-    color: 'green',
+    color: ['green'],
     header: `${logSymbols.success} - `
   },
   warning: {
-    color: 'yellow',
+    color: ['yellow', 'bold'],
     header: `${logSymbols.warning} - `
   },
   info: {
-    color: 'cyan',
+    color: ['cyan'],
     header: `${logSymbols.info} - `
   },
   env: {
-    color: 'magenta',
+    color: ['magenta'],
     header: `[ENV] - `
   },
   log: {
-    color: 'reset',
-    header: ''
+    color: ['reset'],
+  },
+  content: {
+    color: ['dim'],
   }
 };
+
+
+const get = (from, selectors) =>
+  selectors
+  .replace(/\[([^\[\]]*)\]/g, '.$1.')
+  .split('.')
+  .filter(t => t !== '')
+  .reduce((prev, cur) => prev && prev[cur], from);
 
 const logger = {
   _log(msg, options = {}) {
@@ -34,59 +45,41 @@ const logger = {
     const config = logTypeConfig[options.type];
     const header =
       typeof options.customHeader === 'undefined'
-        ? config.header
+        ? (config.header || '')
         : options.customHeader;
-    msg = header + msg;
+    const footer =
+      typeof options.customFooter === 'undefined'
+        ? (config.footer || '')
+        : options.customFooter;
+
+    const colorFn = get(chalk, config.color.join('.'));
+
+    msg = colorFn(header + msg + footer);
 
     if (options.emitEnable) {
       this.emit(`message:${options.type}`, msg);
       this.emit('message', msg);
     }
 
-    console.log(chalk[config.color](msg));
+    process.stdout.write(msg);
+    return msg;
   },
-
-  on(key, listener) {
-    if (!this._events) {
-      this._events = {};
-    }
-    if (!this._events[key]) {
-      this._events[key] = [];
-    }
-    if (
-      !this._events[key].indexOf(listener) !== -1 &&
-      typeof listener === 'function'
-    ) {
-      this._events[key].push(listener);
-    }
-    return this;
-  },
-
-  emit(key) {
-    let args = Array.prototype.slice.call(arguments, 1) || [];
-    if (!this._events || !this._events[key]) {
-      return;
-    }
-    let listeners = this._events[key];
-    let i = 0;
-    let l = listeners.length;
-    for (i; i < l; i++) {
-      listeners[i].apply(this, args);
-    }
-    return this;
-  }
 };
 
 logger.defaultOptions = {
   // 类型
   type: 'log',
   // 是否发射事件
-  emitEnable: false,
+  emitEnable: true,
   // 是否有消息头
   hasHeader: true,
   // 自定义消息头
-  customHeader: undefined
+  customHeader: undefined,
+  // 自定义消息尾
+  customFooter: undefined
 };
+
+event.mixTo(logger);
 
 Object.keys(logTypeConfig).reduce((obj, key) => {
   logger[key] = function(msg, options) {

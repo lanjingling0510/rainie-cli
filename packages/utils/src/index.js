@@ -7,11 +7,13 @@ import chalk from 'chalk';
 import _print from './print';
 import _net from './net';
 import _file from './file';
+import _event from './event';
 
 
 export const print = _print;
 export const net = _net;
 export const file = _file;
+export const event = _event;
 
 export function isNil(value) {
   return null == value;
@@ -144,5 +146,6 @@ export default {
   print,
   net,
   file,
+  event,
 };
 
