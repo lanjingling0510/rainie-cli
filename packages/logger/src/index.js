@@ -54,7 +54,7 @@ const logger = {
 
     const colorFn = get(chalk, config.color.join('.'));
 
-    msg = colorFn(header + msg + footer);
+    msg = colorFn(header + msg + footer + '\n');
 
     if (options.emitEnable) {
       this.emit(`message:${options.type}`, msg);
@@ -83,7 +83,7 @@ event.mixTo(logger);
 
 Object.keys(logTypeConfig).reduce((obj, key) => {
   logger[key] = function(msg, options) {
-    logger._log.apply(logger, [msg, { ...options, type: key }]);
+    return logger._log.apply(logger, [msg, { ...options, type: key }]);
   };
 
   return logger;
