@@ -1,6 +1,6 @@
 {
   "name": "@rnc/logger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "logger",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
+    "@rnc/utils": "^0.0.13",
     "chalk": "^2.4.1",
-    "log-symbols": "^2.2.0",
-    "@rnc/utils": "^0.0.12"
+    "log-symbols": "^2.2.0"
   },
   "publishConfig": {
     "access": "public"
