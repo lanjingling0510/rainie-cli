@@ -25,8 +25,8 @@ function exec(cmd, options, writeStream) {
   writeStream = normalizewriteStream(writeStream);
 
   const startMsg = chalk.cyan('run command >>>: ') + chalk.bgBlackBright.bold(cmd);
-  logger.log(startMsg);
-  writeStream.write(startMsg);
+  const logMsg = logger.log(startMsg);
+  writeStream.write(logMsg);
 
 
   return new Promise((resolve, reject) => {
