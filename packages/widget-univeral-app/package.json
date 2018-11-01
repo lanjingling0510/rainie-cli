@@ -24,7 +24,7 @@
     "@rnc/plugin-oss-upload": "^0.0.9",
     "@rnc/plugin-sequence": "^0.0.6",
     "@rnc/shell": "^0.0.18",
-    "@rnc/spinner": "^0.0.5",
+    "@rnc/logger": "^0.0.3",
     "chalk": "^2.4.1"
   },
   "publishConfig": {

@@ -16,12 +16,12 @@ export default (options) =>
       const object = path.relative(options.cwd, file.path);
       const destPath = path.join(options.baseUrl, object);
 
-      const result = await oss.upload(destPath, file.path, options.force);
-      if (result) {
+      const url = await oss.upload(destPath, file.path, options.force);
+      if (url) {
         logMessage({
           type: 'log',
           key: 'succeed',
-          msg: `上传————${destPath}`
+          msg: `上传————${url}`
         });
       } else {
         logMessage({

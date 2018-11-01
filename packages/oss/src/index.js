@@ -52,7 +52,7 @@ class OssClient {
         );
       }
 
-      return path.join(srcPath, object);
+      return path.join(config.host, object);
     } else {
       return false;
     }

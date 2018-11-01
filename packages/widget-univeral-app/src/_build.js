@@ -23,13 +23,12 @@ const magenta = chalk.dim.magenta;
 
 
 
-async function build(params, cmd, config) {
+async function build(params, cmd, context) {
   const reporter = new EventEmitter();
-
+  const config = context.config;
   try {
-
     const {default: compiler} = require('@rnc/plugin-compiler-webpack');
-    const {default: type} = require('@rnc/plugin-config-app');
+    const {default: compilerConfig} = require('@rnc/plugin-config-app');
 
     /**
      * 监听消息事件
@@ -42,12 +41,12 @@ async function build(params, cmd, config) {
 
     sequence(
       env({
-        'PAGE_DIR': params.join(','),
+        'PAGE_DIR': params.join(',') || 'home',
         'PAGE_CONTEXT': config.pageContext,
         'BUILD_CONTEXT': config.buildContext,
         'LAYOUT_CONTEXT': config.layoutContext,
       }),
-      type,
+      compilerConfig(context.projectConfig),
       compiler(config.compilerConfig)
     )({reporter});
 

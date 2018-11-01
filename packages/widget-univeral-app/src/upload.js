@@ -34,7 +34,7 @@ import EventEmitter from 'events';
 import upload from '@rnc/plugin-oss-upload';
 import sequence from '@rnc/plugin-sequence';
 import find from '@rnc/plugin-find';
-import spinner from '@rnc/spinner';
+import logger from '@rnc/logger';
 import shell from '@rnc/shell';
 import path from 'path';
 
@@ -54,9 +54,9 @@ async function publish(pagePath, cmd) {
     reporter.on('message', (name, data) => {
       if (name === 'oss-upload' && data.type === 'log') {
         if (data.key === 'succeed') {
-          spinner.succeed(data.msg);
+          logger.success(data.msg);
         } else if (data.key === 'fail') {
-          spinner.fail(data.msg);
+          logger.error(data.msg);
         } else {
           console.log(data.msg);
         }

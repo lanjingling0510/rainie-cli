@@ -30,41 +30,17 @@
  */
 
 import chalk from 'chalk';
-import EventEmitter from 'events';
-import upload from '@rnc/plugin-oss-upload';
 import sequence from '@rnc/plugin-sequence';
-import find from '@rnc/plugin-find';
 import {getNextVersion} from '@rnc/git';
-import npm, {ensureNpmRegistry} from '@rnc/plugin-npm';
 import {gitCommit, gitPush, updatePackageVersion, releaseCurrentBranch} from '@rnc/plugin-git';
-import spinner from '@rnc/spinner';
 import shell from '@rnc/shell';
-import path from 'path';
 
 const error = chalk.red;
 
 
 async function publish(pagePath, cmd) {
-  const reporter = new EventEmitter();
-  const srcPath = pagePath.length > 0 ? pagePath : '*';
-  const config = this.config;
 
   try {
-
-    /**
-     * 监听消息事件
-     */
-    reporter.on('message', (name, data) => {
-      if (name === 'oss-upload' && data.type === 'log') {
-        if (data.key === 'succeed') {
-          spinner.succeed(data.msg);
-        } else if (data.key === 'fail') {
-          spinner.fail(data.msg);
-        } else {
-          console.log(data.msg);
-        }
-      }
-    });
 
 
     const nextVersion = await getNextVersion();
@@ -84,7 +60,7 @@ async function publish(pagePath, cmd) {
       //   cwd: config.buildContext,
       //   force: true,
       // })
-    )({reporter});
+    )();
 
   } catch (err) {
     console.log(error(err));

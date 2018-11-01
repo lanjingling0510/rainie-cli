@@ -10,7 +10,7 @@ import chalk from 'chalk';
 async function build(params, cmd) {
     process.env.NODE_ENV = 'production';
     console.log(`\n${chalk.cyan('###')} 当前正在执行${chalk.red('生产环境')}的构建。\n`);
-  return _build(params, cmd, this.config);
+    return _build(params, cmd, this);
 }
 
 export default build;

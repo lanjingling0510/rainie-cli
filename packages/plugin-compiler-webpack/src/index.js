@@ -110,9 +110,9 @@ export default webpackConfig =>
                   host +
                   ':' +
                   port +
-                  '/' +
+                  '/pages/' +
                   pageDir[0] +
-                  '.html'
+                  '/index.html'
               )
           );
           console.log();
@@ -203,7 +203,7 @@ export default webpackConfig =>
         }
 
         openBrowser(
-          protocol + '://' + host + ':' + port + '/' + pageDir[0] + '.html'
+          protocol + '://' + host + ':' + port + '/pages/' + pageDir[0] + '/index.html'
         );
       });
     }

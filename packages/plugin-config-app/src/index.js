@@ -1,9 +1,9 @@
 import plugin from '@rnc/plugin-core';
 
-
- export default plugin('type-app', async () => {
+export default projectConfig =>
+  plugin('type-app', async () => {
     const config = require('./config');
     return {
-      defaultConfig: config,
-    }
+      defaultConfig: config(projectConfig)
+    };
   });

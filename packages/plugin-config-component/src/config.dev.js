@@ -36,7 +36,7 @@ const getPathMaps = () => {
 
       // template
       template[`pages/${item}/index`] = {
-        name: `${item}.html`,
+        name: `pages/${item}/index.html`,
         existsTemplate: existsTemplate,
         template: existsTemplate
           ? tplPath
@@ -101,7 +101,7 @@ let config = {
   entry: pathMapsEntry,
   output: {
     path: path.join(cwd, 'lib'),
-    publicPath: '',
+    publicPath: isDev ? '/' : '',
   },
   resolve: {
     symlinks: false,
