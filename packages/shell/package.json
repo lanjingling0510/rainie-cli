@@ -1,6 +1,6 @@
 {
   "name": "@rnc/shell",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "execute the bash command",
   "license": "MIT",
   "main": "lib/index.js",
