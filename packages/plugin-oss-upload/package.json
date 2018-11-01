@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-oss-upload",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "upload assets to oss",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@rnc/oss": "^0.0.9",
+    "@rnc/oss": "^0.0.10",
     "@rnc/plugin-core": "^0.0.5"
   },
   "publishConfig": {
