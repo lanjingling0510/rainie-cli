@@ -63,7 +63,7 @@ async function publish(pagePath, cmd) {
       }
     });
 
-    sequence(
+    await sequence(
       find(srcPath, {
         expandDirectories: true,
         onlyFiles: true,
