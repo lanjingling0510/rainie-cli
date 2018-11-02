@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-config-node-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "🔍 node server configuration",
   "license": "MIT",
   "main": "lib/index.js",
