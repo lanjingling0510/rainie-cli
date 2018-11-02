@@ -98,9 +98,7 @@ let config = {
     }),
 
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: isDev ? JSON.stringify('development') : JSON.stringify('production')
-      }
+      'process.env.NODE_ENV': isDev ? JSON.stringify('development') : JSON.stringify('production')
     })
   ]
 };
