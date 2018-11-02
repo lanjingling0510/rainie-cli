@@ -214,9 +214,7 @@ module.exports = (projectConfig) => {
     config.plugins.unshift(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('development')
-        }
+        'process.env.NODE_ENV': JSON.stringify('development')
       })
     );
 
@@ -262,9 +260,7 @@ module.exports = (projectConfig) => {
         chunkFilename: '[id].css',
       }),
       new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
+        'process.env.NODE_ENV': JSON.stringify('production')
       })
     );
   }
