@@ -1,6 +1,6 @@
 {
   "name": "@rnc/plugin-env",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "🔍 set process.env",
   "license": "MIT",
   "main": "lib/index.js",

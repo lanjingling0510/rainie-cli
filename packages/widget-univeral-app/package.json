@@ -1,6 +1,6 @@
 {
   "name": "@rnc/widget-univeral-app",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "通用应用",
   "license": "MIT",
   "main": "lib/index.js",
@@ -18,7 +18,7 @@
     "@rnc/logger": "^0.0.3",
     "@rnc/plugin-compiler-webpack": "^0.0.12",
     "@rnc/plugin-config-app": "^0.0.6",
-    "@rnc/plugin-env": "^0.0.7",
+    "@rnc/plugin-env": "^0.0.8",
     "@rnc/plugin-find": "^0.0.8",
     "@rnc/plugin-git": "^0.0.19",
     "@rnc/plugin-npm": "^0.0.21",

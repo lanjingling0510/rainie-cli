@@ -1,6 +1,6 @@
 {
   "name": "@rnc/widget-univeral-rainie-toolbox-app",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "rainie-toolbox应用",
   "license": "MIT",
   "main": "lib/index.js",
@@ -17,7 +17,7 @@
     "@rnc/git": "^0.0.19",
     "@rnc/plugin-compiler-webpack": "^0.0.12",
     "@rnc/plugin-config-rainie-toolbox-app": "^0.0.2",
-    "@rnc/plugin-env": "^0.0.7",
+    "@rnc/plugin-env": "^0.0.8",
     "@rnc/plugin-find": "^0.0.8",
     "@rnc/plugin-git": "^0.0.19",
     "@rnc/plugin-npm": "^0.0.21",
