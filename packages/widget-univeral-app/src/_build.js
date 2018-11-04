@@ -39,7 +39,7 @@ async function build(params, cmd, context) {
       }
     })
 
-    sequence(
+    await sequence(
       env({
         'PAGE_DIR': params.join(',') || 'home',
         'PAGE_CONTEXT': config.pageContext,

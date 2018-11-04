@@ -159,6 +159,17 @@ class Widget {
     this.uninstall(name);
   }
 
+  /**
+   * 放回插件根路径
+   */
+  async pwd(name) {
+    if (name) {
+      return path.join(this.widgetRootPath, name);
+    } else {
+      return this.getCurrentWidgetFilePath('.');
+    }
+  }
+
   getCurrentWidgetFilePath(file) {
     const name = this.config.widget;
     if (name) {

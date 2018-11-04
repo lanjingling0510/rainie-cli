@@ -33,14 +33,15 @@ function exec(cmd, options, writeStream) {
     const bin = cmd.split(/\s+/)[0];
     const args = cmd.split(/\s+/).slice(1);
     const child = spawn(bin, args, { stdio: 'pipe', ...options });
+    let result = '';
 
-    child.on('close', (code, stdout, stderr) => {
+    child.on('close', (code) => {
       if (code) {
-        reject(stdout || stderr);
+        reject(result);
       } else {
         const successMsg = logger.success(chalk.underline(cmd) + ' —— 执行成功');
         writeStream.write(successMsg);
-        resolve(stdout || stderr);
+        resolve(result);
       }
     });
 
@@ -48,6 +49,7 @@ function exec(cmd, options, writeStream) {
       logger.once('message:warning', msg => {
         writeStream.write(msg);
       });
+      result += data.toString('utf8');
       logger.warning(data.toString('utf8'));
     });
 
@@ -56,6 +58,7 @@ function exec(cmd, options, writeStream) {
       logger.once('message:content', msg => {
         writeStream.write(msg);
       });
+      result += data.toString('utf8');
       logger.content(data.toString('utf8'));
 
     });

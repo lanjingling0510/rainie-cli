@@ -26,7 +26,9 @@ async function pluginCommand(action, args) {
     case 'unlink':
       await unlink.apply(context, args);
       break;
-
+    case 'pwd':
+       await pwd.apply(context, args);
+      break;
     default:
       console.log(chalk.yellow(`- 没有注册命令:rnc plugin ${action}`));
       break;
@@ -67,5 +69,14 @@ async function link(name) {
 async function unlink(name) {
   return this.widgetMananger.unlink(name);
 }
+
+/**
+ * 获取插件路劲
+ */
+async function pwd(name) {
+  const path = await this.widgetMananger.pwd(name);
+  console.log(path);
+}
+
 
 export default pluginCommand;
