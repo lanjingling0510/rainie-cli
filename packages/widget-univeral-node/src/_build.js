@@ -40,7 +40,7 @@ async function build(params, cmd, config) {
       }
     })
 
-    sequence(
+    await sequence(
       env({
         'PAGE_CONTEXT': config.pageContext,
         'BUILD_CONTEXT': config.buildContext,
