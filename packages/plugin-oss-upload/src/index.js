@@ -23,6 +23,15 @@ export default (options) =>
           key: 'succeed',
           msg: `上传————${url}`
         });
+
+        if (path.extname(url) === '.html') {
+          logMessage({
+            type: 'log',
+            msg: `***BEGIN PREVIEW URL***${url}***END PREVIEW URL***`
+          });
+        }
+
+
       } else {
         logMessage({
           type: 'log',

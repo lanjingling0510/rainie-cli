@@ -2,6 +2,7 @@ import OSS from 'ali-oss';
 import fs from 'fs';
 import uuid from 'uuid';
 import path from 'path';
+import url from 'url';
 import utils from '@rnc/utils';
 import config from './config';
 
@@ -51,8 +52,7 @@ class OssClient {
           `上传oss失败: object = ${object}, status = ${push.res.status}`
         );
       }
-
-      return path.join(config.host, object);
+      return url.resolve(config.host, object);
     } else {
       return false;
     }

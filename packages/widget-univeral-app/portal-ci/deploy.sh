@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo "====> Prepare Start <===="
-
+echo "====> 拉取项目 <===="
 if [ ! -d "$PROJECT_HOME_PATH" ]; then
   git clone "$PROJECT_PUBLISH_GIT" "$PROJECT_HOME_PATH"
   if [ ! -d "$PROJECT_HOME_PATH" ]; then
@@ -17,16 +16,27 @@ else
   git pull
 fi
 
-echo "-----------------------------"
-git log -n 1
-echo "====> Build Start <===="
 
+echo "====> 最新提交信息 <===="
+git log -n 1
+
+echo "====> 项目目录 <===="
 ls -l
+
+echo "====> @rnc/ci 版本 <===="
 rnc -v
 
+echo "====> 安装依赖 <===="
 npm install --production
+
+
+echo "====> 打包 <===="
 rnc build
+
+echo "====> 上传发布 <===="
 rnc upload
+
+echo "====> 发布成功 <===="
 
 
 if [ $? -ne 0 ];then
