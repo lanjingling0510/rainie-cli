@@ -46,9 +46,8 @@ export default {
     port: 8000
   },
 
-  // 环境
-  env: {
-    development: {},
-    production: {}
+  // 项目特色配置
+  feature: {
+
   }
 };

@@ -15,6 +15,7 @@ const pageDir = (process.env.PAGE_DIR || '*').split(',');
 const pageContext = process.env.PAGE_CONTEXT;
 const buildContext = process.env.BUILD_CONTEXT;
 const layoutContext = process.env.LAYOUT_CONTEXT;
+const elementWraper = process.env.ELEMENT_WRAPPER;
 
 /**
  * 设置入口文件
@@ -115,10 +116,7 @@ module.exports = (projectConfig) => {
         widget: path.join(cwd, 'src/widget'),
         common: path.join(cwd, 'src/common'),
         'react-hot-loader': require.resolve('react-hot-loader'),
-        // Resolve Babel runtime relative to rainie-cli.
-        // It usually still works on npm 3 without this but it would be
-        // unfortunate to rely on, as rainie-cli could be symlinked,
-        // and thus @babel/runtime might not be resolvable from the source.
+        // 解决：当rainie-ci是symlinked的时候,@babel/runtime从源码引用失败
         '@babel/runtime': path.dirname(
           require.resolve('@babel/runtime/package.json')
         ),
@@ -136,9 +134,9 @@ module.exports = (projectConfig) => {
             highlightCode: true,
             plugins: [
               require.resolve('react-hot-loader/babel'),
-              // require.resolve('babel-plugin-transform-decorators-legacy'),
               [require.resolve('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-            ],
+              elementWraper ? require.resolve('babel-plugin-element-wrapper') : ''
+            ].filter(Boolean),
             presets: [
               require.resolve('babel-preset-react-app')
             ],
@@ -172,7 +170,6 @@ module.exports = (projectConfig) => {
       'react-dom': 'ReactDOM',
       'prop-types': 'PropTypes',
     },
-    mode: isDev ? 'development' : 'production',
 
     optimization: {
       noEmitOnErrors: true,
@@ -218,6 +215,8 @@ module.exports = (projectConfig) => {
       })
     );
 
+    config.mode = 'development';
+
     config.watch = true;
 
     config.watchOptions = {
@@ -230,6 +229,9 @@ module.exports = (projectConfig) => {
     生产配置
    ------------------------- */
     // config.devtool = 'source-map'
+
+    config.mode = 'production';
+
     config.plugins.unshift(
       new UglifyJSPlugin({
         cache: true,

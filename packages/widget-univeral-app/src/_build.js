@@ -45,6 +45,7 @@ async function build(params, cmd, context) {
         'PAGE_CONTEXT': config.pageContext,
         'BUILD_CONTEXT': config.buildContext,
         'LAYOUT_CONTEXT': config.layoutContext,
+        'ELEMENT_WRAPPER': config.feature.elementWraper,
       }),
       compilerConfig(context.projectConfig),
       compiler(config.compilerConfig)
