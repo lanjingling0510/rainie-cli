@@ -18,6 +18,7 @@
     "@babel/runtime": "7.0.0",
     "@rnc/builder-helper": "^0.0.0",
     "@rnc/plugin-core": "^0.0.5",
+    "@rnc/utils": "^0.0.13",
     "babel-loader": "8.0.0-beta.4",
     "babel-preset-react-app": "^4.0.0-next.3e165448",
     "chalk": "^2.4.1",

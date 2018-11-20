@@ -28,6 +28,7 @@
     "@babel/plugin-transform-runtime": "7.1.0",
     "@babel/preset-env": "7.1.0",
     "babel-eslint": "^7.2.3",
+    "depcheck": "^0.6.11",
     "eslint": "^3.8.1",
     "eslint-config-cqaso-kit": "0.0.1",
     "eslint-loader": "^1.6.1",

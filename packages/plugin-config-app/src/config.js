@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import { print } from '@rnc/utils';
 import webpack from 'webpack';
 import chalk from 'chalk';
 import path from 'path';
@@ -12,6 +13,8 @@ const cwd = process.cwd();
 
 module.exports = options => {
   const entry = getAppEntry(options);
+  print.header('入口页面');
+  print.list(Object.keys(entry).map((key, index) => [`[${index + 1}]`, key]), ['cyan']);
 
   /**
   |--------------------------------------------------
