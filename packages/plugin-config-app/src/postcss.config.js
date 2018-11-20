@@ -1,4 +1,4 @@
-module.export = ctx => {
+module.exports = ctx => {
   return {
     plugins: [
       require('postcss-import')(),

@@ -1,7 +1,7 @@
 {
-  "name": "@rnc/plugin-lint-staged",
-  "version": "0.0.16",
-  "description": "🔍 excute lint staged",
+  "name": "@rnc/builder-helper",
+  "version": "0.0.0",
+  "description": "打包器帮助工具",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
@@ -13,10 +13,8 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@babel/runtime": "7.0.0",
-    "@rnc/plugin-core": "^0.0.5",
-    "@rnc/shell": "^0.0.21",
-    "lint-staged": "7.x"
+    "react-dev-utils": "^5.0.1",
+    "globby": "^4.1.0"
   },
   "publishConfig": {
     "access": "public"

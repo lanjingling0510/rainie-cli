@@ -2,112 +2,43 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import webpack from 'webpack';
 import chalk from 'chalk';
 import path from 'path';
-import globby from 'globby';
-import fs from 'fs';
-
+import { getAppEntry, getAppTemplate, getRule } from '@rnc/builder-helper';
 
 const cwd = process.cwd();
-const isDev = process.env.NODE_ENV === 'development';
-const pageDir = (process.env.PAGE_DIR || '*').split(',');
-const pageContext = process.env.PAGE_CONTEXT;
-const buildContext = process.env.BUILD_CONTEXT;
-const layoutContext = process.env.LAYOUT_CONTEXT;
-const elementWraper = process.env.ELEMENT_WRAPPER;
 
-/**
- * 设置入口文件
- * 遍历目录，遇到index.js则不再深入
- */
-const getPathMaps = () => {
-  const entry = {};
-  const template = {};
+module.exports = options => {
+  const entry = getAppEntry(options);
 
-  const dirs = globby.sync(pageDir, {
-    cwd: pageContext
-  });
+  /**
+  |--------------------------------------------------
+  | 配置信息
+  |--------------------------------------------------
+  */
 
-  dirs.forEach(item => {
-    const tplPath = path.join(layoutContext, item + '.html');
-    const entryPath = path.join(pageContext, item, 'index.js');
-    // 入口文件存在
-    if (fs.existsSync(entryPath)) {
-      let existsTemplate = fs.existsSync(tplPath);
+  // 标准配合
+  const config = {
+    entry: entry,
 
-      // template
-      template[`pages/${item}/index`] = {
-        name: `pages/${item}/index.html`,
-        existsTemplate: existsTemplate,
-        template: existsTemplate
-          ? tplPath
-          : path.join(__dirname, '..', 'layout', 'index.html')
-      };
+    mode: options.nodeEnv,
 
-      // entry
-      entry[`pages/${item}/index`] = [
-        entryPath
-      ];
-      if (isDev) {
-        entry[`pages/${item}/index`].unshift(require.resolve('react-dev-utils/webpackHotDevClient'));
-      }
-
-    }
-  });
-
-  return {
-    entry,
-    template
-  };
-};
-
-/**
- * 设置HtmlWebpackPlugin列表
- */
-const pathMaps = getPathMaps();
-let HtmlWebpackPluginMap = [];
-
-let template = pathMaps.template;
-for (let key in template) {
-  if (template.hasOwnProperty(key)) {
-    let value = template[key];
-    let HtmlWebpackPluginConfig;
-    if (value.template) {
-      HtmlWebpackPluginConfig = {
-        filename: value.name,
-        template: value.template,
-        inject: 'body',
-        chunks: [key]
-      };
-    }
-    HtmlWebpackPluginMap.push(new HtmlWebpackPlugin(HtmlWebpackPluginConfig));
-  }
-}
-
-const pathMapsEntry = pathMaps.entry;
-if (Object.keys(pathMapsEntry).length === 0) {
-  console.log(`\n>>> 请确认${process.env.PAGE_DIR}路径是否正确 \n`);
-  process.exit();
-}
-
-/* -----------------------
-  公共配置
- ------------------------- */
-
-
-module.exports = (projectConfig) => {
-  let config = {
-    entry: pathMapsEntry,
     output: {
-      path: buildContext,
-      publicPath: isDev ? '/' : `//static-assets.cyt-rain.cn/${projectConfig.name}/${projectConfig.version}/`,
+      // 构建目录
+      path: options.buildContext,
+      // 文件名
       filename: '[name].js',
+      // chunk 文件名
       chunkFilename: '[chunkhash].js'
     },
+
     resolve: {
       symlinks: false,
+      // 支持扩展名
       extensions: ['.js', '.jsx'],
+      // 预定义的alias
       alias: {
         components: path.join(cwd, 'src/components'),
         pages: path.join(cwd, 'src/pages'),
@@ -119,12 +50,14 @@ module.exports = (projectConfig) => {
         // 解决：当rainie-ci是symlinked的时候,@babel/runtime从源码引用失败
         '@babel/runtime': path.dirname(
           require.resolve('@babel/runtime/package.json')
-        ),
+        )
       }
     },
     module: {
       rules: [
+        // 加载 js
         {
+          id: 'id',
           test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: require.resolve('babel-loader'),
@@ -134,30 +67,32 @@ module.exports = (projectConfig) => {
             highlightCode: true,
             plugins: [
               require.resolve('react-hot-loader/babel'),
-              [require.resolve('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-              elementWraper ? require.resolve('babel-plugin-element-wrapper') : ''
-            ].filter(Boolean),
-            presets: [
-              require.resolve('babel-preset-react-app')
+              [
+                require.resolve('@babel/plugin-proposal-decorators'),
+                { legacy: true }
+              ],
             ],
+            presets: [require.resolve('babel-preset-react-app')]
           }
         },
+
+        // 加载 css
         {
+          id: 'css',
           test: /\.css$/,
           use: [
-
-            { loader: isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader },
             {
               loader: require.resolve('css-loader'),
               options: {
                 importLoaders: 1,
-                sourceMap: isDev
+                sourceMap: options.isDev
               }
-            }, {
+            },
+            {
               loader: require.resolve('postcss-loader'),
               options: {
                 config: {
-                  path: path.join(__dirname, 'postcss.config.js'),
+                  path: path.join(__dirname, 'postcss.config.js')
                 }
               }
             }
@@ -165,10 +100,12 @@ module.exports = (projectConfig) => {
         }
       ]
     },
+
+    // 自定义externals
     externals: {
       react: 'React',
       'react-dom': 'ReactDOM',
-      'prop-types': 'PropTypes',
+      'prop-types': 'PropTypes'
     },
 
     optimization: {
@@ -177,60 +114,82 @@ module.exports = (projectConfig) => {
     },
 
     plugins: [
-      new CleanWebpackPlugin([buildContext], {
+      // 清空之前build目标目录
+      new CleanWebpackPlugin([options.buildContext], {
         root: cwd,
         verbose: false
       }),
-      ...HtmlWebpackPluginMap,
 
-      // 进度插件
-      new webpack.ProgressPlugin((percentage, msg) => {
-        if (process.stdout.isTTY && isDev && percentage < 1) {
-          process.stdout.cursorTo(0);
-          process.stdout.write(
-            chalk.yellow(`${(percentage * 100).toFixed(0)}% ${msg}`)
-          );
-          process.stdout.clearLine(1);
-        } else if (percentage === 1) {
-          process.stdout.cursorTo(0);
-          process.stdout.clearLine(1);
-        }
-      })
+      // 定义代码环境变量
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(options.nodeEnv)
+      }),
+
+      // 显示构建进度
+      new ProgressBarPlugin(),
+
+      // 处理 .Locale 文件
+      new webpack.IgnorePlugin(/\.\/locale$/, /moment$/)
     ]
   };
 
-  /* -----------------------
-    开发配置
-   ------------------------- */
 
-  if (isDev) {
+  /**
+  |--------------------------------------------------
+  | 可选配置
+  |--------------------------------------------------
+  */
+
+  // 打包html模板
+  if (options.buildTemplate) {
+    const tpls = getAppTemplate(entry, options);
+    const HtmlWebpackPluginMap = tpls.map(config => new HtmlWebpackPlugin(config));
+    config.plugins.unshift(...HtmlWebpackPluginMap);
+  }
+
+  // 构建特性
+  if (options.feature) {
+    if (options.feature.wrapper) {
+      console.log(chalk.cyan('INFO:'), '已开启 element-wrapper 支持');
+      const ruleJs = getRule(config.module.rules, 'js');
+      ruleJs.use[0].options.plugins.push(require.resolve('babel-plugin-element-wrapper'))
+    }
+  }
+
+
+  /**
+  |--------------------------------------------------
+  | 开发配置
+  |--------------------------------------------------
+  */
+
+  if (options.isDev) {
+    config.output.publicPath = '/';
     config.devtool = 'cheap-module-eval-source-map';
-
     config.optimization.namedModules = true;
 
-    config.plugins.unshift(
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('development')
-      })
-    );
+    const ruleCss = getRule(config.module.rules, 'css');
 
-    config.mode = 'development';
+    ruleCss.use.unshift({
+      loader: require.resolve('style-loader')
+    });
 
-    config.watch = true;
-
-    config.watchOptions = {
-      aggregateTimeout: 500,
-      poll: 1000,
-      ignored: /node_modules/
-    };
+    config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
   } else {
-    /* -----------------------
-    生产配置
-   ------------------------- */
+
+    /**
+    |--------------------------------------------------
+    | 生产配置
+    |--------------------------------------------------
+    */
+
     // config.devtool = 'source-map'
 
-    config.mode = 'production';
+    config.output.publicPath = `//static-assets.cyt-rain.cn/${options.name}/${options.version}/`;
+    const ruleCss = getRule(config.module.rules, 'css');
+    ruleCss.use.unshift({
+      loader: MiniCssExtractPlugin.loader
+    });
 
     config.plugins.unshift(
       new UglifyJSPlugin({
@@ -257,14 +216,18 @@ module.exports = (projectConfig) => {
           safari10: false
         }
       }),
+
       new MiniCssExtractPlugin({
         filename: '[name].css',
-        chunkFilename: '[id].css',
-      }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production')
+        chunkFilename: '[id].css'
       })
     );
+  }
+
+
+  // 删除所有 Loader 上的 id
+  for (const item of config.module.rules) {
+    delete item.id;
   }
 
   return config;

@@ -17,7 +17,6 @@
     "@rnc/git": "^0.0.19",
     "@rnc/plugin-compiler-rollup": "^0.0.7",
     "@rnc/plugin-compiler-webpack": "^0.0.12",
-    "@rnc/plugin-config-app": "^0.0.6",
     "@rnc/plugin-config-component": "^0.0.5",
     "@rnc/plugin-env": "^0.0.8",
     "@rnc/plugin-find": "^0.0.8",

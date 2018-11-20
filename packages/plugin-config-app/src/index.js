@@ -1,9 +1,10 @@
 import plugin from '@rnc/plugin-core';
 
-export default projectConfig =>
+export default (options, defaultConfig) =>
   plugin('type-app', async () => {
-    const config = require('./config');
+    const webpackMerge = require('webpack-merge');
+    const configFactory = require('./config');
     return {
-      defaultConfig: config(projectConfig)
+      config: webpackMerge(configFactory(options), defaultConfig)
     };
   });

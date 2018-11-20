@@ -15,13 +15,11 @@
 import chalk from 'chalk';
 import EventEmitter from 'events';
 import sequence from '@rnc/plugin-sequence';
-import env from '@rnc/plugin-env';
 import shell from '@rnc/shell';
+import {normalizeOptions} from '@rnc/builder-helper';
 
 const error = chalk.red;
 const magenta = chalk.dim.magenta;
-
-
 
 async function build(params, cmd, context) {
   const reporter = new EventEmitter();
@@ -39,16 +37,19 @@ async function build(params, cmd, context) {
       }
     })
 
+    // 打包配置
+    const options = normalizeOptions({
+      name: context.projectConfig.name,
+      version: context.projectConfig.version,
+      pages: params,
+      pageContext: config.pageContext,
+      buildContext: config.buildContext,
+      layoutContext: config.layoutContext,
+    });
+
     await sequence(
-      env({
-        'PAGE_DIR': params.join(',') || 'home',
-        'PAGE_CONTEXT': config.pageContext,
-        'BUILD_CONTEXT': config.buildContext,
-        'LAYOUT_CONTEXT': config.layoutContext,
-        'ELEMENT_WRAPPER': config.feature.elementWraper,
-      }),
-      compilerConfig(context.projectConfig),
-      compiler(config.compilerConfig)
+      compilerConfig(options, context.compilerConfig),
+      compiler(options)
     )({reporter});
 
 

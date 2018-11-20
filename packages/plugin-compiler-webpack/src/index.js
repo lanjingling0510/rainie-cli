@@ -1,11 +1,10 @@
 import plugin from '@rnc/plugin-core';
 
-export default webpackConfig =>
-  plugin('compiler-webpack', async ({defaultConfig}) => {
+export default options =>
+  plugin('compiler-webpack', async ({config}) => {
 
     const chalk = require('chalk');
     const webpack = require('webpack');
-    const webpackMerge = require('webpack-merge');
     const WebpackDevServer = require('webpack-dev-server');
     const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
     const openBrowser = require('react-dev-utils/openBrowser');
@@ -15,10 +14,12 @@ export default webpackConfig =>
     const port = process.env.DEV_PROXY_PORT || getAvailablePort(8000);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const host = process.env.HOST || '0.0.0.0';
-    const pageDir = (process.env.PAGE_DIR || '*').split(',');
-    const isDev =  process.env.NODE_ENV === 'development';
 
-    webpackConfig = webpackMerge(defaultConfig, webpackConfig);
+
+
+    const pageDir = options.pages;
+    const isDev =  options.isDev;
+
 
     // Tools like Cloud9 rely on this.
     let compiler;
@@ -110,9 +111,9 @@ export default webpackConfig =>
                   host +
                   ':' +
                   port +
-                  '/pages/' +
+                  '/' +
                   pageDir[0] +
-                  '/index.html'
+                  '.html'
               )
           );
           console.log();
@@ -203,7 +204,7 @@ export default webpackConfig =>
         }
 
         openBrowser(
-          protocol + '://' + host + ':' + port + '/pages/' + pageDir[0] + '/index.html'
+          protocol + '://' + host + ':' + port + '/' + pageDir[0] + '.html'
         );
       });
     }
@@ -238,10 +239,10 @@ export default webpackConfig =>
 
     // 运行程序
     if (isDev) {
-      setupCompiler(webpackConfig);
-      runDevServer(webpackConfig);
+      setupCompiler(config);
+      runDevServer(config);
     } else {
-      setupBuildCompiler(webpackConfig);
+      setupBuildCompiler(config);
     }
 
   });

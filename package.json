@@ -6,6 +6,7 @@
     "start": "lerna run --parallel --stream start",
     "build": "lerna run --parallel --stream build",
     "link": "lerna exec --scope @rnc/cli -- npm link",
+    "depcheck": "lerna exec --stream --concurrency 1 -- depcheck --skip-missing=true --ignores=webpack-cli,@babel/*",
     "bootstrap": "lerna bootstrap --hoist",
     "publish": "lerna publish",
     "clean": "lerna clean"
