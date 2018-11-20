@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>子页面</title>
+  <style>
+    .navigator-tip {
+      top: 50px;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      background: rgba(35, 163, 255, .2) none repeat scroll 0% 0%;
+      width: 100%;
+      color: #a94442;
+      z-index: 99;
+      position: fixed;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="c-loading">页面加载中...</div>
+  </div>
+  <script src="//static-assets.cyt-rain.cn/assets/react.development.js"></script>
+  <script src="//static-assets.cyt-rain.cn/assets/react-dom.development.js"></script>
+  <script src="//static-assets.cyt-rain.cn/assets/prop-types.js"></script>
+  <script src="/build/pages/{{pageName}}/index.js"></script>
+</body>
+
+</html>

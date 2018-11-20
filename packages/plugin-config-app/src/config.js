@@ -15,7 +15,7 @@ module.exports = options => {
   const entry = getAppEntry(options);
   print.header('入口页面');
   print.list(Object.keys(entry).map((key, index) => [`[${index + 1}]`, key]), ['cyan']);
-
+  options.entry = entry;
   /**
   |--------------------------------------------------
   | 配置信息
@@ -167,7 +167,7 @@ module.exports = options => {
   */
 
   if (options.isDev) {
-    config.output.publicPath = '/';
+    config.output.publicPath = '/build/';
     config.devtool = 'cheap-module-eval-source-map';
     config.optimization.namedModules = true;
 

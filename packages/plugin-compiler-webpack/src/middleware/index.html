@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>页面索引</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,address=no,email=no"> {# dns预解析 #}
+  <style>
+    body {
+      padding: 20px;
+      margin: 0;
+    }
+
+    .desc {
+      margin-bottom: 20px;
+    }
+
+    .pages {}
+
+    .pages>.page {
+      margin-bottom: 15px;
+      background-color: #FAFAFA;
+      padding: 10px 15px;
+      border-radius: 3px;
+      border: #EEE solid 1px;
+    }
+
+    .pages>.page:hover {
+      background-color: #EEE;
+    }
+
+    .pages>.page>.title {
+      color: #333;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-decoration: none;
+    }
+
+    .pages>.page>.title:hover {
+      text-decoration: underline;
+    }
+
+    .pages>.page>.file {
+      color: #666;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="desc">共有 {{pages.length}} 个页面</div>
+  <div class="pages">
+    {% for page in pages %}
+    <div class="page">
+      <a class="title" href="{{page.url}}" target="_blank">{{page.url}}</a>
+      <div class="file">{{page.file}}</div>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+
+</html>
