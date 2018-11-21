@@ -1,5 +1,6 @@
 import globby from 'globby';
 import path from 'path';
+import fs from 'fs';
 
 export function normalizeOptions(options) {
   options = Object.assign({}, options);
@@ -101,13 +102,18 @@ export function getAppTemplate(entry, options) {
     const name = item.replace(/(^pages\/|\/index$)/g, '');
     const tplPath = path.join(options.layoutContext, name + '.html');
 
+    if (!fs.existsSync(tplPath)) {
+      return false;
+    }
+
     return {
+      key: name,
       filename: name + '.html',
       template: tplPath,
       inject: 'body',
       chunks: [item]
     }
-  })
+  }).filter(Boolean);
 }
 
 

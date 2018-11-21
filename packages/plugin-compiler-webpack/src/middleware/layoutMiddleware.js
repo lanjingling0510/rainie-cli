@@ -2,37 +2,30 @@
 
 const fs = require('fs')
 const path = require('path')
-const getIn = require('lodash.get')
-const nunjucks = require('nunjucks')
+const nunjucks = require('nunjucks');
 
-const getLayout = (options) => {
-  if (options.layout) {
-    return fs.readFileSync(path.join(appDir, options.layout), 'utf-8')
-  } else {
-    // TODO: 变成从 portal 接口拿
-    return fs.readFileSync(path.join(__dirname, './layout.html'), 'utf-8')
-  }
-}
 
-module.exports = (appDir, options) => {
-  // 模板内容
-  const layoutContent = getLayout(appDir, options)
-  const template = nunjucks.compile(layoutContent)
+module.exports = (options) => {
+
+
+  const layoutContent = fs.readFileSync(path.join(__dirname, './layout.html'), 'utf-8');
+  const template = nunjucks.compile(layoutContent);
 
   return function (req, res) {
-    const appName = getIn(req, 'params.app')
-    const pageName = getIn(req, 'params.0', '') || ''
+    // 模板内容
+    const pageName = req.params[0];
+    const localTplPath = path.join(options.layoutContext, pageName)
 
-    // 如果是兼容模式下, 则会先查找 demo 目录下的模板
-    let localLayout
-    if (process.env.COMPATIBLE) {
-      const localTplPath = path.join(appDir, 'demos', pageName)
-      if (fs.existsSync(localTplPath)) {
-        localLayout = fs.readFileSync(localTplPath, 'utf-8')
-      }
+    let content;
+    // 会先查找 项目下目录的模板
+    if (fs.existsSync(localTplPath)) {
+      content = fs.readFileSync(localTplPath, 'utf-8')
+    } else {
+      content = template.render({
+        pageName: pageName.replace('.html', ''),
+      });
     }
 
-    let content = localLayout;
     res.set('Content-Type', 'text/html; charset=utf-8')
     res.end(content)
   }
