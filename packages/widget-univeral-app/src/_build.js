@@ -48,7 +48,7 @@ async function build(params, cmd, context) {
     });
 
     await sequence(
-      compilerConfig(options, context.compilerConfig),
+      compilerConfig(options, config.compilerConfig),
       compiler(options)
     )({reporter});
 
