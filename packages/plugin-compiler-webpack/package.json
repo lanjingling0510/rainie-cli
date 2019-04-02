@@ -19,8 +19,8 @@
     "@rnc/utils": "^0.0.13",
     "chalk": "^2.4.1",
     "nunjucks": "^3.1.4",
-    "react-dev-utils": "^5.0.1",
-    "webpack": "^4.15.1",
+    "react-dev-utils": "^8.0.0",
+    "webpack": "4.29.6",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
   },

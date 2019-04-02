@@ -13,8 +13,8 @@
     "node": ">=6"
   },
   "dependencies": {
-    "react-dev-utils": "^5.0.1",
-    "globby": "^4.1.0"
+    "globby": "^4.1.0",
+    "react-dev-utils": "^8.0.0"
   },
   "publishConfig": {
     "access": "public"

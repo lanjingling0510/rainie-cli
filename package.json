@@ -9,7 +9,8 @@
     "depcheck": "lerna exec --stream --concurrency 1 -- depcheck --skip-missing=true --ignores=webpack-cli,@babel/*",
     "bootstrap": "lerna bootstrap --hoist",
     "publish": "lerna publish",
-    "clean": "lerna clean"
+    "clean": "lerna clean",
+    "update_deps": "lernaupdate"
   },
   "keywords": [
     "analyze",
@@ -44,6 +45,7 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
-    "lerna": "^2.11.0"
+    "lerna": "^2.11.0",
+    "lerna-update-wizard": "^0.11.1"
   }
 }
