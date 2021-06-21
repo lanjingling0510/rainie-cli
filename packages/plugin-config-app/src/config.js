@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import WorkerPlugin from 'worker-plugin';
 import { print } from '@rnc/utils';
 import webpack from 'webpack';
 import chalk from 'chalk';
@@ -126,6 +127,11 @@ module.exports = options => {
       // 定义代码环境变量
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(options.nodeEnv)
+      }),
+
+      // worker.js模块
+      new WorkerPlugin({
+        globalObject: 'self',
       }),
 
       // 显示构建进度
